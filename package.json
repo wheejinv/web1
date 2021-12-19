@@ -1,0 +1,22 @@
+{
+  "name": "web1",
+  "version": "1.0.0",
+  "description": "생활코딩 web1 수업 따라하기",
+  "main": "src/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wheejinv/web1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wheejinv/web1/issues"
+  },
+  "homepage": "https://github.com/wheejinv/web1#readme"
+}
