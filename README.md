@@ -7,3 +7,4 @@
 - [생활코딩 web2 javascript](https://www.youtube.com/playlist?list=PLuHgQVnccGMBB348PWRN0fREzYcYgFybf)
 - [생활코딩 web2 homeserver](https://www.youtube.com/playlist?list=PLuHgQVnccGMA52uRBmSwqcvtI5IMoFclJ)
 - [생활코딩 web2 DNS](https://www.youtube.com/playlist?list=PLuHgQVnccGMCI75J-rC8yZSVGZq3gYsFp)
+- [생활코딩 webpack 수업](https://www.youtube.com/watch?v=cp_MeXO2fLg&list=PLuHgQVnccGMChcT9IKopFDoAIoTA-03DA&index=1)
