@@ -1,5 +1,6 @@
 import hello_word from "./Hello.js";
 import world_word from "./World.js";
+import "../css/style.css"
 
 let test = function() {
 	console.log("clicked, ", hello_word, world_word);
