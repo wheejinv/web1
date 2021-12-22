@@ -9,7 +9,7 @@ const MODE = {
 module.exports = (env) => {
 	console.log(env);
 
-	let mode = MODE.none; // env.production ? MODE.prod : MODE.dev;
+	let mode = MODE.none;
 
 	if (env.production === true) {
 		mode = MODE.prod;
@@ -24,6 +24,7 @@ module.exports = (env) => {
 		output: {
 			filename: 'main.js',
 			path: path.resolve(__dirname, 'dist'),
+			clean: true,
 		},
 		module: {
 			rules: [

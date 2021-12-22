@@ -1,5 +1,5 @@
-import hello_word from "./Hello.js";
-import world_word from "./World.js";
+import hello_word from "./Hello";
+import world_word from "./World";
 import "../css/style.css"
 
 let test = function() {
