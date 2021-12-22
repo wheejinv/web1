@@ -1,13 +1,25 @@
 const path = require('path')
 
+const MODE = {
+	none: "none",
+	dev: "development",
+	prod: "production",
+}
+
 module.exports = (env) => {
 	console.log(env);
 
-	let mode = env.production ? "production" : "development";
+	let mode = MODE.none; // env.production ? MODE.prod : MODE.dev;
 
-	return {
+	if (env.production === true) {
+		mode = MODE.prod;
+	} else if (env.development === true) {
+		mode = MODE.dev;
+	}
+
+	let result = {
 		entry: './src/index.js',
-		mode,
+		mode, // process.env.NODE_ENV 값도 같이 설정됨.
 		// mode: "production",
 		output: {
 			filename: 'main.js',
@@ -25,4 +37,12 @@ module.exports = (env) => {
 			],
 		}
 	}
+
+	if (mode === MODE.dev) {
+		result.devtool = "source-map"
+	} else if (mode === MODE.prod) {
+
+	}
+
+	return result;
 }

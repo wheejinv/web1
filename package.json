@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx webpack",
+    "build": "npx webpack --env development",
     "build_prod": "npx webpack --env production"
   },
   "repository": {
