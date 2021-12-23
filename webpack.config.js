@@ -18,7 +18,7 @@ module.exports = (env) => {
 	}
 
 	let result = {
-		entry: './src/index.js',
+		entry: './src/indexTs.ts',
 		mode, // process.env.NODE_ENV 값도 같이 설정됨.
 		// mode: "production",
 		output: {
@@ -28,6 +28,11 @@ module.exports = (env) => {
 		},
 		module: {
 			rules: [
+				{
+					test: /\.tsx?$/,
+					use: 'ts-loader',
+					exclude: /node_modules/,
+				},
 				{
 					test: /\.css$/i, // 확장자가 css 인 코드
 					use: [
@@ -48,11 +53,14 @@ module.exports = (env) => {
 					],
 				},
 			],
+		},
+		resolve: {
+			extensions: ['.tsx', '.ts', '.js'],
 		}
 	}
 
 	if (mode === MODE.dev) {
-		result.devtool = "source-map"
+		result.devtool = "inline-source-map"
 	} else if (mode === MODE.prod) {
 
 	}
