@@ -1,0 +1,14 @@
+$main-color: #eeeeee;
+
+h1 {
+  background-color: $main-color;
+  font-size: 45px;
+  text-align: center;
+}
+
+ol {
+  border-right: 1px solid gray;
+  width: 100px;
+  margin: 0;
+  padding: 20px;
+}
