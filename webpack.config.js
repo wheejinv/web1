@@ -32,9 +32,21 @@ module.exports = (env) => {
 					test: /\.css$/i, // 확장자가 css 인 코드
 					use: [
 						'style-loader',
-						'css-loader', // 순서상 뒤에 로더가 먼저 실행됨.
+						// 순서상 뒤에 로더가 먼저 실행됨.
+						'css-loader',
 					],
-				}
+				},
+				{
+					test: /\.s[ac]ss$/i,
+					use: [
+						// Creates `style` nodes from JS strings
+						"style-loader",
+						// Translates CSS into CommonJS
+						"css-loader",
+						// Compiles Sass to CSS
+						"sass-loader",
+					],
+				},
 			],
 		}
 	}
