@@ -24,7 +24,8 @@ module.exports = (env) => {
 		output: {
 			filename: 'main.js',
 			path: path.resolve(__dirname, 'dist'),
-			clean: true,
+			publicPath: "/dist",
+			// clean: true,
 		},
 		module: {
 			rules: [
@@ -61,6 +62,21 @@ module.exports = (env) => {
 
 	if (mode === MODE.dev) {
 		result.devtool = "inline-source-map"
+		result.devServer = {
+			liveReload: false,
+			hot: true,
+			// 설정참고: https://webpack.kr/configuration/dev-server/#devserverstatic
+			static: [
+				{
+					directory: path.join(__dirname, 'public'),
+					publicPath: '/',
+				},
+				{
+					directory: path.join(__dirname, 'dist'),
+					publicPath: '/dist',
+				},
+			],
+		}
 	} else if (mode === MODE.prod) {
 
 	}

@@ -10,7 +10,7 @@ declare global {
 }
 
 let test = () => {
-    console.log("Hi Ts");
+    console.log("Hi Dev Server");
 }
 
 window.test = test;
