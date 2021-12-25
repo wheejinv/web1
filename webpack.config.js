@@ -1,5 +1,4 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
 
 const MODE = {
 	none: "none",
@@ -19,10 +18,7 @@ module.exports = (env) => {
 	}
 
 	let result = {
-		entry: [
-			'./src/indexTs.ts',
-			'webpack-hot-middleware/client?reload=true', // webpack5 reload bug - https://github.com/webpack-contrib/webpack-hot-middleware/issues/390
-		],
+		entry: './src/indexTs.ts',
 		mode, // process.env.NODE_ENV 값도 같이 설정됨.
 		// mode: "production",
 		output: {
@@ -69,7 +65,7 @@ module.exports = (env) => {
 		result.devServer = {
 			liveReload: false,
 			hot: true,
-			// https://webpack.kr/configuration/dev-server/#devserverstatic
+			// 설정참고: https://webpack.kr/configuration/dev-server/#devserverstatic
 			static: [
 				{
 					directory: path.join(__dirname, 'public'),
@@ -81,13 +77,6 @@ module.exports = (env) => {
 				},
 			],
 		}
-
-		// for webpack middleware
-		if (!result.plugins) {
-			result.plugins = [];
-		}
-		result.plugins.push(new webpack.HotModuleReplacementPlugin());
-
 	} else if (mode === MODE.prod) {
 
 	}

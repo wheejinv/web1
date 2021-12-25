@@ -4,11 +4,9 @@ const path = require('path')
 const webpackDevMiddleware = require('webpack-dev-middleware');
 
 const app = express();
-const config = require('./webpack.config.js');
+const config = require('./webpack.dev_server_middleware.config.js');
 
-const config_ = config({"development": true});
-
-const compiler = webpack(config_);
+const compiler = webpack(config);
 
 app.use('/', express.static('public'));
 
@@ -16,7 +14,7 @@ app.use('/', express.static('public'));
 // 기본 설정 파일
 app.use(
 	webpackDevMiddleware(compiler, {
-		publicPath: config_.output.publicPath,
+		publicPath: config.output.publicPath,
 	})
 );
 
