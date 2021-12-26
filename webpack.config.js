@@ -18,14 +18,17 @@ module.exports = (env) => {
 	}
 
 	let result = {
-		entry: './src/indexTs.ts',
+		entry: {
+			main: './src/indexTs.ts',
+			bootCamp: './src/bootCamp.ts',
+		},
 		mode, // process.env.NODE_ENV 값도 같이 설정됨.
 		// mode: "production",
 		output: {
-			filename: 'main.js',
+			filename: '[name].js',
 			path: path.resolve(__dirname, 'dist'),
 			publicPath: "/dist",
-			// clean: true,
+			clean: true,
 		},
 		module: {
 			rules: [
@@ -63,7 +66,7 @@ module.exports = (env) => {
 	if (mode === MODE.dev) {
 		result.devtool = "inline-source-map"
 		result.devServer = {
-			liveReload: false,
+			liveReload: true,
 			hot: true,
 			// 설정참고: https://webpack.kr/configuration/dev-server/#devserverstatic
 			static: [
