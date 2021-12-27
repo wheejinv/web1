@@ -7,13 +7,23 @@
 }
 
 .boot16 {
+	// https://colorhunt.co/
+	$fontColor: #D77FA1;
 	$background: #FFF9F9;
 	$horizontal: #BAABDA;
+	//$horizontal: black;
 
 	background-color: $background;
 
+	h1, h2, h3 {
+		color: $fontColor;
+	}
+
 	hr {
-		border: 1px solid $horizontal;
+		border-style: dotted none none none;
+		border-width: 5px;
+		width: 40px;
+		border-color: $horizontal;
 	}
 
 	table {
