@@ -1,20 +1,25 @@
 .boot12 {
-    text-align: center;
+	text-align: center;
 
-    hr {
-        border: 1px solid rgb(128, 128, 128);
-    }
+	hr {
+		border: 1px solid rgb(128, 128, 128);
+	}
 }
 
 .boot16 {
-    hr {
-        border: 1px solid rgb(128, 128, 128);
-    }
+	$background: #FFF9F9;
+	$horizontal: #BAABDA;
 
-  table {
-      tr {
-        //border: 1px solid black;
-        //background-color: ;
-      }
-  }
+	background-color: $background;
+
+	hr {
+		border: 1px solid $horizontal;
+	}
+
+	table {
+		tr {
+			//border: 1px solid black;
+			//background-color: ;
+		}
+	}
 }

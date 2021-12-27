@@ -1,4 +1,3 @@
-import"../css/bootCamp.scss"
+import "../css/bootCamp.scss"
 
 export {};
-
