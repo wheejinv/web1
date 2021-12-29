@@ -1,20 +1,241 @@
-.boot12 {
-    text-align: center;
+.index {
+	a:hover {
+		color: red;
+	}
+}
 
-    hr {
-        border: 1px solid rgb(128, 128, 128);
-    }
+.boot12 {
+	text-align: center;
+
+	hr {
+		border: 1px solid rgb(128, 128, 128);
+	}
 }
 
 .boot16 {
-    hr {
-        border: 1px solid rgb(128, 128, 128);
-    }
+	// https://colorhunt.co/
+	$fontColor: #D77FA1;
+	$background: #FFF9F9;
+	$horizontal: #BAABDA;
+	//$horizontal: black;
 
-  table {
-      tr {
-        //border: 1px solid black;
-        //background-color: ;
-      }
-  }
+	background-color: $background;
+
+	h1, h2, h3 {
+		color: $fontColor;
+	}
+
+	hr {
+		border-style: dotted none none none;
+		border-width: 5px;
+		width: 40px;
+		border-color: $horizontal;
+	}
+
+	table {
+		tr {
+			//border: 1px solid black;
+			//background-color: ;
+		}
+	}
+}
+
+.boot44 {
+	margin: 0;
+
+	//background-color: red;
+	.top-container {
+		background-color: antiquewhite;
+		border-style: solid;
+		border-color: black;
+		border-width: 10px;
+		padding: 20px;
+
+		height: 200px;
+		width: 200px;
+
+		h1 {
+			margin-top: 0;
+			margin-bottom: 0;
+
+			padding: 5px 5px 5px 5px;
+		}
+	}
+
+	.middle-container {
+		@extend .top-container;
+		background-color: red;
+		border-width: 20px;
+		margin-left: 260px;
+		padding: 0;
+	}
+
+	.bottom-container {
+		@extend .middle-container;
+		background-color: yellow;
+		border-width: 10px;
+		margin-left: 500px;
+	}
+}
+
+.boot45 {
+	margin: 0;
+	text-align: center;
+
+	h1 {
+		margin: 50px auto 0 auto;
+		font-size: 5.625rem; // 16px == 100% == em, rem 은 부모의 폰트 크기를 상속받지 않기 때문에 rem 이 좋은듯.
+		color: #66BFBF;
+		//line-height: 2;
+	}
+
+	h2 {
+		font-size: 2.5rem;
+		font-weight: normal;
+		color: #66BFBF;
+	}
+
+	h3, a {
+		color: #11999E;
+	}
+
+	hr {
+		border-style: dotted none none none;
+		border-width: 5px;
+		width: 40px;
+		border-color: #BAABDA;
+	}
+
+	//background-color: red;
+	.top-container {
+		background-color: #EAF6F6;
+		padding-top: 100px;
+		position: relative;
+
+		.top-cloud {
+			position: absolute;
+			top: 60px;
+			right: 10px;
+		}
+
+		.bottom-cloud {
+			position: absolute;
+			left: 50px;
+		}
+	}
+
+	.middle-container {
+		.profile, .contact-me {
+			width: 50%;
+			margin: auto;
+
+			p {
+				color: #40514E;
+			}
+		}
+
+		.contact-me {
+			margin-bottom: 40px;
+		}
+
+		.skills {
+			//position: relative;
+
+			.skill-row {
+				margin: 100px auto;
+				width: 50%;
+				text-align: left;
+
+				.javascript {
+					width: 25%;
+					float: left;
+					margin-right: 30px;
+				}
+
+				.html {
+					width: 25%;
+					float: right;
+					margin-left: 30px;
+				}
+
+				h3, p {
+					//text-align: left;
+					line-height: 2;
+					margin-left: 30px;
+				}
+			}
+		}
+
+		.btn {
+			background: #11cdd4;
+			background-image: -webkit-linear-gradient(top, #11cdd4, #11999e);
+			background-image: -moz-linear-gradient(top, #11cdd4, #11999e);
+			background-image: -ms-linear-gradient(top, #11cdd4, #11999e);
+			background-image: -o-linear-gradient(top, #11cdd4, #11999e);
+			background-image: linear-gradient(to bottom, #11cdd4, #11999e);
+			//-webkit-border-radius: 28;
+			//-moz-border-radius: 28;
+			border-radius: 8px;
+			//font-family: Arial;
+			color: #ffffff;
+			font-size: 20px;
+			padding: 10px 20px 10px 20px;
+			text-decoration: none;
+		}
+
+		.btn:hover {
+			background: #3cb0fd;
+			background-image: -webkit-linear-gradient(top, #3cb0fd, #11cdd4);
+			background-image: -moz-linear-gradient(top, #3cb0fd, #11cdd4);
+			background-image: -ms-linear-gradient(top, #3cb0fd, #11cdd4);
+			background-image: -o-linear-gradient(top, #3cb0fd, #11cdd4);
+			background-image: linear-gradient(to bottom, #3cb0fd, #11cdd4);
+			text-decoration: none;
+		}
+	}
+
+	.bottom-container {
+		background-color: #66BFBF;
+		padding-top: 30px;
+		a {
+			margin: 40px 20px 40px;
+		}
+
+		p {
+			margin: 0;
+			padding: 10px 0 10px 0;
+			color: #EAF6F6;
+		}
+	}
+}
+
+.boot47 {
+	margin: 0;
+
+	div {
+		width: 100px;
+		height: 100px;
+		position: absolute;
+	}
+
+	.red {
+		background-color: red;
+		left: 200px;
+		top: 200px;
+	}
+
+	.blue {
+		background-color: blue;
+		left: 100px;
+		top: 100px;
+	}
+
+	.yellow {
+		background-color: yellow;
+	}
+}
+
+.boot63 {
+	@import "~bootstrap/scss/bootstrap";
+
 }
