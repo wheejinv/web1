@@ -3,8 +3,12 @@ body {
 }
 
 h1 {
-	font-size: 3rem;
+	font-size: 2.5rem;
 	line-height: 1.5;
+}
+
+h2 {
+	/*font-size: 2.5rem;*/
 }
 
 .navbar-brand {
@@ -36,7 +40,7 @@ h1 {
 
 .container-fluid {
 	color: #fff;
-	padding: 3% 15%;
+	padding: 3% 15% 7%;
 }
 
 #title {
@@ -44,17 +48,22 @@ h1 {
 }
 
 .pic-iphone {
-	width: 60%;
+	width: 70%;
 	/*transform-origin: top left;*/
 	-webkit-transform:rotate(25deg);
 	-moz-transform: rotate(25deg);
 	-ms-transform: rotate(25deg);
 	-o-transform: rotate(25deg);
 	transform: rotate(25deg);
+	position: absolute;
+	right: 20%;
 }
 
 #features {
 	/*margin: 3rem 0;*/
+	background-color: #fff;
+	position: relative;
+	/*z-index: 1;*/
 
 }
 
@@ -75,4 +84,74 @@ p {
 
 .feature-icon:hover {
 	color: red;
+}
+
+/*Testimonial Section*/
+#testimonials {
+
+	text-align: center;
+	background-color: #ff4c68;
+	color: #fff;
+}
+
+.carousel-item {
+	padding: 7% 15%;
+}
+
+.testimonial-image {
+	width: 10%;
+	border-radius: 100%;
+	margin: 20px;
+}
+
+#press {
+	background-color: #ff4c68;
+	text-align: center;
+	padding-bottom: 3rem;
+}
+
+.press-logo {
+	width: 15%;
+	margin: 20px 20px 50px;
+}
+
+#pricing {
+	text-align: center;
+	padding: 100px;
+}
+
+.pricing-column {
+	padding: 3% 2%;
+}
+
+@media (max-width: 992px) {
+	#title {
+		text-align: center;
+	}
+
+	.pic-iphone {
+		position: static;
+		transform: rotate(0);
+	}
+}
+
+/*cta*/
+#cta {
+	background-color: #ff4c68;
+	padding: 5% 0 3% 0;
+	text-align: center;
+}
+
+#cta h3 {
+	color: white;
+}
+
+/*footer*/
+#footer {
+	margin: 5% auto;
+	text-align: center;
+}
+
+#footer .fab {
+	padding: 0 10px 0 10px;
 }
