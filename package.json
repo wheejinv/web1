@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/wheejinv/web1#readme",
   "devDependencies": {
+    "@types/jquery": "^3.5.11",
     "css-loader": "^6.5.1",
     "express": "^4.17.2",
     "sass": "^1.45.1",
