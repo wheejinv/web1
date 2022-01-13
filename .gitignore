@@ -1,5 +1,6 @@
 # personal
 .idea
+.DS_Store
 
 # Logs
 logs
