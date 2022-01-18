@@ -22,7 +22,8 @@ const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const personSchema = new mongoose.Schema({
 	name: String,
-	age: Number
+	age: Number,
+	favoriteFruit: fruitSchema
 })
 const Person = new mongoose.model("Person", personSchema);
 
@@ -37,11 +38,31 @@ mongoose.connect(url, () => {
 
 	// deleteTest();
 
+	relationTest();
+
 	setTimeout( () => {
 		// todo insert, read 둘다 끝났을 떄 close 되도록
 		mongoose.connection.close();
 	}, 1000);
 });
+
+function relationTest() {
+	const pineapple = new Fruit({
+		name: "Pineapple",
+		rating: 9,
+		review: "Great fruit"
+	});
+
+	pineapple.save();
+
+	const person = new Person({
+		name: "heejin",
+		age: 38,
+		favoriteFruit: pineapple
+	})
+
+	person.save();
+}
 
 function deleteTest() {
 	Fruit.deleteOne({
