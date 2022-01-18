@@ -29,21 +29,49 @@ const Person = new mongoose.model("Person", personSchema);
 mongoose.connect(url, () => {
 	console.log("connected");
 
-	insertTest();
+	// insertTest();
 
-	readTest();
+	// readTest();
 
+	// updateTest();
 
+	// deleteTest();
+
+	setTimeout( () => {
+		// todo insert, read 둘다 끝났을 떄 close 되도록
+		mongoose.connection.close();
+	}, 1000);
 });
+
+function deleteTest() {
+	Fruit.deleteOne({
+		name: "Peach"
+	}, function(err) {
+		if(err) {
+			console.log(err)
+		} else {
+			console.log("Successfully deleted")
+		}
+	})
+}
+
+function updateTest() {
+	Fruit.updateOne({_id: "61e6686bdfdf908882fdc25c"}, {
+		name: "Peach"
+	}, function(err) {
+		if (err) {
+			console.log(err)
+		} else {
+			console.log("Successfully update")
+		}
+	})
+}
 
 function readTest() {
 	Fruit.find(function(err, fruits) {
 		if (err) {
 			console.log(err);
 		} else {
-
-			mongoose.connection.close();
-
 			// console.log(fruits);
 			fruits.forEach( (fruit) => {
 				console.log(fruit.name);
@@ -56,9 +84,9 @@ function insertTest() {
 	const fruit = new Fruit({
 		// name: "Apple",
 		rating: 3,
-		review: "Pretty solid as a fruit."
+		review: "no name fruit."
 	});
-	fruit.save();
+	// fruit.save();
 
 	const person = new Person({
 		name: "John",
