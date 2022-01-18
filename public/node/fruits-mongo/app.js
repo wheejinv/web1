@@ -11,28 +11,53 @@ const fruitSchema = new mongoose.Schema({
 	rating: Number,
 	review: String
 });
+const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const personSchema = new mongoose.Schema({
 	name: String,
 	age: Number
 })
+const Person = new mongoose.model("Person", personSchema);
 
 mongoose.connect(url, () => {
 	console.log("connected");
 
-	const Fruit = mongoose.model("Fruit", fruitSchema);
+	// insertTest();
 
+	readTest();
+
+
+});
+
+function readTest() {
+	Fruit.find(function(err, fruits) {
+		if (err) {
+			console.log(err);
+		} else {
+
+			mongoose.connection.close();
+
+			// console.log(fruits);
+			fruits.forEach( (fruit) => {
+				console.log(fruit.name);
+			})
+		}
+	})
+}
+
+function insertTest() {
 	const fruit = new Fruit({
 		name: "Apple",
 		rating: 6,
 		review: "Pretty solid as a fruit."
 	});
+	// fruit.save();
 
-	const Person = new mongoose.model("Person", personSchema);
 	const person = new Person({
 		name: "John",
 		age: 37,
 	});
+	// person.save();
 
 	const kiwi = new Fruit({
 		name: 'kiwi',
@@ -51,15 +76,11 @@ mongoose.connect(url, () => {
 		review: "little sour for me"
 	});
 
-	Fruit.insertMany([kiwi, banana, orange], function(err) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("Successfully saved all the fruits to fruitsDB")
-		}
-	});
-
-	// person.save();
-	// fruit.save();
-
-});
+	// Fruit.insertMany([kiwi, banana, orange], function(err) {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log("Successfully saved all the fruits to fruitsDB")
+	// 	}
+	// });
+}
