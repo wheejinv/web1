@@ -7,8 +7,15 @@ const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/
 console.log(`connection url: ${url}`)
 
 const fruitSchema = new mongoose.Schema({
-	name: String,
-	rating: Number,
+	name: { // validation name은 값이 꼭 있어야 한다.
+		type: String,
+		required: [true, "Please enter the fruit name"]
+	},
+	rating: { // validation rating은 1~10 사이의 값을 가져야 한다.
+		type: Number,
+		min: 1,
+		max: 10
+	},
 	review: String
 });
 const Fruit = mongoose.model("Fruit", fruitSchema);
@@ -22,7 +29,7 @@ const Person = new mongoose.model("Person", personSchema);
 mongoose.connect(url, () => {
 	console.log("connected");
 
-	// insertTest();
+	insertTest();
 
 	readTest();
 
@@ -47,11 +54,11 @@ function readTest() {
 
 function insertTest() {
 	const fruit = new Fruit({
-		name: "Apple",
-		rating: 6,
+		// name: "Apple",
+		rating: 3,
 		review: "Pretty solid as a fruit."
 	});
-	// fruit.save();
+	fruit.save();
 
 	const person = new Person({
 		name: "John",
