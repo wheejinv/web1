@@ -17,8 +17,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-let posts = [];
-
 // connection to mongodb
 let mongoConfig = require('./mongo_config.json');
 const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/${mongoConfig.dbName}?authSource=admin`;
@@ -40,10 +38,17 @@ const postSchema = new mongoose.Schema({
 const Post = new mongoose.model("Post", postSchema);
 
 app.get("/", function(req, res){
-  res.render("home", {
-    startingContent: homeStartingContent,
-    posts: posts
-    });
+	Post.find({}, (err, docs) => {
+		let posts = [];
+		if (docs.length > 0) {
+			posts = docs;
+		}
+
+		res.render("home", {
+			startingContent: homeStartingContent,
+			posts: posts
+		});
+	});
 });
 
 app.get("/about", function(req, res){
@@ -59,33 +64,30 @@ app.get("/compose", function(req, res){
 });
 
 app.post("/compose", function(req, res){
-
-
   const post = {
     title: req.body.postTitle,
-    content: req.body.postBody
+    contents: req.body.postBody
   };
 
-  posts.push(post);
+	let postItem = new Post({
+		title: post.title,
+		contents: post.contents
+	});
 
-  res.redirect("/");
-
+	postItem.save().then( () => {
+		res.redirect("/");
+	})
 });
 
-app.get("/posts/:postName", function(req, res){
-  const requestedTitle = _.lowerCase(req.params.postName);
-
-  posts.forEach(function(post){
-    const storedTitle = _.lowerCase(post.title);
-
-    if (storedTitle === requestedTitle) {
-      res.render("post", {
-        title: post.title,
-        content: post.content
-      });
-    }
-  });
-
+app.get("/posts/:postID", function(req, res){
+	Post.findOne({_id: req.params.postID}, function (err, foundList) {
+		if (foundList) {
+			res.render("post", {
+				title: foundList.title,
+				contents: foundList.contents,
+			})
+		}
+	})
 });
 
 app.listen(3000, function() {
