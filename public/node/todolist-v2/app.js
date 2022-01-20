@@ -40,7 +40,7 @@ const listSchema = new mongoose.Schema({
 const List = mongoose.model("List", listSchema);
 
 let mongoConfig = require('./mongo_config.json');
-const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/${mongoConfig.dbName}`;
+const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/${mongoConfig.dbName}?authSource=admin`;
 mongoose.connect(url, () => {
 	console.log('success connect');
 });

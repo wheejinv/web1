@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let mongoConfig = require('./mongo_config.json');
 
 // mongoose.connect('mongodb://username:password@host:port/database?options...');
-const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/${mongoConfig.dbName}`;
+const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/${mongoConfig.dbName}?authSource=admin`;
 console.log(`connection url: ${url}`)
 
 const fruitSchema = new mongoose.Schema({
