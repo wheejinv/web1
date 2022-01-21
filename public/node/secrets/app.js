@@ -2,9 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+const app = express();
+
 const mongoose = require('mongoose');
 const mongoConfig = require('./mongo_config.json');
-const app = express();
+const encrypt = require('mongoose-encryption');
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -21,10 +23,17 @@ mongoose.connect(url, (err) => {
 		console.log('success connect');
 });
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
 	email: String,
 	password: String
-}
+});
+
+// encryptionKey, signingKey 생성 방식 SOME_32BYTE_BASE64_STRING, 64: openssl rand -base64 32, openssl rand -base64 32;
+// secret: 아무말이나 대충 쓴 string
+userSchema.plugin(encrypt, {
+	secret: mongoConfig.secret,
+	encryptedFields: ['password'],
+})
 
 const User = new mongoose.model('User', userSchema);
 
