@@ -4,9 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
+const md5 = require('md5')
 
 const mongoose = require('mongoose');
-const encrypt = require('mongoose-encryption');
+// const encrypt = require('mongoose-encryption');
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -31,10 +32,10 @@ const userSchema = new mongoose.Schema({
 
 // encryptionKey, signingKey 생성 방식 SOME_32BYTE_BASE64_STRING, 64: openssl rand -base64 32, openssl rand -base64 32;
 // secret: 아무말이나 대충 쓴 string
-userSchema.plugin(encrypt, {
-	secret: env.SECRET,
-	encryptedFields: ['password'],
-})
+// userSchema.plugin(encrypt, {
+// 	secret: env.SECRET,
+// 	encryptedFields: ['password'],
+// })
 
 const User = new mongoose.model('User', userSchema);
 
@@ -49,8 +50,9 @@ app.get('/login', function(req, res) {
 app.post('/login', async function(req, res) {
 	const {email, password} = req.body;
 	let findUser = await User.findOne({email});
-	if (findUser && findUser.password === password) {
-		console.log(`로그인 성공, email: ${email}, password: ${password}`)
+	if (findUser && findUser.password === md5(password)) {
+		// 해시함수를 써도 md5 처리 전에 password 접근이 가능한데.. 문제 있는거 아닌가
+		// console.log(`로그인 성공, email: ${email}, password: ${password}`)
 		res.render('secrets');
 	} else {
 		console.log('로그인 실패.');
@@ -67,7 +69,7 @@ app.post('/register', async function(req, res) {
 
 	const newUser = new User({
 		email,
-		password
+		password: md5(password)
 	});
 
 	let findEmail = await User.findOne({email});
