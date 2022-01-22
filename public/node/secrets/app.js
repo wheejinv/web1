@@ -4,7 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
-const md5 = require('md5')
+// const md5 = require('md5')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const mongoose = require('mongoose');
 // const encrypt = require('mongoose-encryption');
@@ -50,9 +52,11 @@ app.get('/login', function(req, res) {
 app.post('/login', async function(req, res) {
 	const {email, password} = req.body;
 	let findUser = await User.findOne({email});
-	if (findUser && findUser.password === md5(password)) {
+
+	if (findUser && await bcrypt.compare(password, findUser.password)) {
 		// 해시함수를 써도 md5 처리 전에 password 접근이 가능한데.. 문제 있는거 아닌가
 		// console.log(`로그인 성공, email: ${email}, password: ${password}`)
+		console.log('로그인 성공')
 		res.render('secrets');
 	} else {
 		console.log('로그인 실패.');
@@ -69,7 +73,7 @@ app.post('/register', async function(req, res) {
 
 	const newUser = new User({
 		email,
-		password: md5(password)
+		password: await bcrypt.hash(password, saltRounds)
 	});
 
 	let findEmail = await User.findOne({email});
