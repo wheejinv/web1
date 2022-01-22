@@ -1,11 +1,11 @@
 //jshint esversion:6
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
 
 const mongoose = require('mongoose');
-const mongoConfig = require('./mongo_config.json');
 const encrypt = require('mongoose-encryption');
 
 app.use(express.static('public'));
@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 
-const url = `mongodb://${mongoConfig.id}:${mongoConfig.pass}@${mongoConfig.url}/${mongoConfig.dbName}?authSource=admin`;
+const env = process.env;
+const url = `mongodb://${env.ID}:${env.PASS}@${env.URL}/${env.DBNAME}?authSource=admin`;
 
 mongoose.connect(url, (err) => {
 	if (err)
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema({
 // encryptionKey, signingKey 생성 방식 SOME_32BYTE_BASE64_STRING, 64: openssl rand -base64 32, openssl rand -base64 32;
 // secret: 아무말이나 대충 쓴 string
 userSchema.plugin(encrypt, {
-	secret: mongoConfig.secret,
+	secret: env.SECRET,
 	encryptedFields: ['password'],
 })
 
