@@ -83,7 +83,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
 	clientID: env.CLIENT_ID,
 	clientSecret: env.CLIENT_SECRET,
-	callbackURL: "http://localhost:3000/auth/google/secrets",
+	callbackURL: `${env.HOST_URL}/auth/google/secrets`,
 	userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 }, function (accessToken, refreshToken, profile, cb) {
 	console.log(`profile: ${JSON.stringify(profile)}`)
