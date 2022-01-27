@@ -12,6 +12,9 @@ pipeline {
             steps {
                 script {
                     sh """
+												echo whoami
+												whoami
+
 												npm run build_prod
 
                         echo copy public folder
