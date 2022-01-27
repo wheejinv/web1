@@ -18,10 +18,10 @@ pipeline {
 												npm run build_prod
 
                         echo copy public folder
-                        cp -r ${WORK_ROOT}/public/* ${DIST_ROOT}
+                        cp -fr ${WORK_ROOT}/public/* ${DIST_ROOT}
 
 												echo copy dist folder
-												cp -r ${WORK_ROOT}/dist ${DIST_ROOT}
+												cp -fr ${WORK_ROOT}/dist ${DIST_ROOT}
                     """
                 }
             }
