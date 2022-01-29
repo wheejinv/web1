@@ -35,14 +35,21 @@ module.exports = {
 		extensions: ["*", ".js", ".jsx"],
 	},
 	output: {
-		path: path.resolve(__dirname, "./public"),
+		path: path.resolve(__dirname, "./dist"),
 		filename: "main.bundle.js",
 	},
 	mode: "development",
 	plugins: [new webpack.HotModuleReplacementPlugin()],
 	devtool: "source-map",
 	devServer: {
-		static: path.resolve(__dirname, "./public"),
+		static: [
+			{
+				directory: path.resolve(__dirname, "./public")
+			},
+			{
+				directory: path.resolve(__dirname, "./dist")
+			}
+		],
 		hot: true,
 	},
 };
