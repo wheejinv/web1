@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import"./css/mainStyle.scss"
+import App from './components/App';
 
-ReactDOM.render(<h1>Hello World</h1>, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // hot reloading. It works by replacing a module of the application
 // during runtime with an updated one so that it’s available for instant use.
