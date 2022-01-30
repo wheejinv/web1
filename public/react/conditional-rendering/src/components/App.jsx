@@ -3,18 +3,13 @@ import Login from "./Login";
 
 let isLoggedIn = false;
 
-function renderConditionally() {
-	if (isLoggedIn) {
-		return <h1>Hello</h1>;
-	} else {
-		return <Login />;
-	}
-}
+const currentHour = new Date(2022, 1, 31, 13).getHours();
 
 function App() {
   return (
     <div className="container">
-			{renderConditionally()}
+			{isLoggedIn ? <h1>Hello</h1> : <Login/>}
+			{currentHour > 10 && <h1>Why are you still study..?</h1>}
     </div>
   );
 }
