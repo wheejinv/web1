@@ -1,12 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 
 function App() {
-  return (
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+
+	function updateFirstName(e) {
+		setFirstName(e.target.value);
+	}
+
+	function updateLastName(e) {
+		setLastName(e.target.value);
+	}
+
+	return (
     <div className="container">
-      <h1>Hello</h1>
+      <h1>Hello {firstName} {lastName}</h1>
       <form>
-        <input name="fName" placeholder="First Name" />
-        <input name="lName" placeholder="Last Name" />
+        <input
+					onChange={updateFirstName}
+					value={firstName}
+					name="fName"
+					placeholder="First Name"
+				/>
+        <input
+					onChange={updateLastName}
+					value={lastName}
+					name="lName"
+					placeholder="Last Name"
+				/>
         <button>Submit</button>
       </form>
     </div>
