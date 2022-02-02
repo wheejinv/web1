@@ -7,8 +7,10 @@ html {
   font-family: "Montserrat", sans-serif;
 }
 body {
-  background: #eee;
   padding: 0 16px;
+	background-color: #ccb100;
+	background-image: url("https://www.transparenttextures.com/patterns/always-grey.png");
+	/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 header {
