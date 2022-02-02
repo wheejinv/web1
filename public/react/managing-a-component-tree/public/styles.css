@@ -55,6 +55,10 @@ body {
   margin-bottom: 20px;
 }
 
+.checked {
+	text-decoration: line-through;
+}
+
 button {
   padding: 0;
   border: none;
