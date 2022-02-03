@@ -13,9 +13,17 @@ module.exports = {
 			{
 				test: /\.css$/i, // 확장자가 css 인 코드
 				use: [
-					'style-loader',
-					// 순서상 뒤에 로더가 먼저 실행됨.
-					'css-loader',
+					{loader: "style-loader"},
+					// Translates CSS into CommonJS
+					{
+						loader: "css-loader",
+						options: {
+							importLoaders: 1,
+							modules: {
+								localIdentName: "[path][name]__[local]--[hash:base64:5]"
+							}
+						}
+					},
 				],
 			},
 			{
