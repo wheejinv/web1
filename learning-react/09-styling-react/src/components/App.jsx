@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './App.css';
+import classNames from "classnames/bind";
+
+const cn = classNames.bind(styles);
 
 function App(props) {
 	// CSS Module은 CSS를 모듈화하여 사용하는 방식이다.
@@ -16,7 +19,13 @@ function App(props) {
 		<div
 			// className={styles.box} // 한개 사용하는 경우
 			// 여러개의 class 반영하는 경우.
-			className={[styles.box, styles.blue].join(' ')}
+			// className={[styles.box, styles.blue].join(' ')}
+
+			// classNames/bind 라이브러리를 활용해서 클래스가 여러개인 경우 처리를 쉽게
+			className={cn(
+				'box',
+				{blue: Math.random() < 0.5}, // true or false 로 조건부 스타일링을 할 때 매우 편리하다.
+			)}
 		/>
 	);
 }
