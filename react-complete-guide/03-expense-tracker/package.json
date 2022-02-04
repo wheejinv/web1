@@ -1,5 +1,5 @@
 {
-  "name": "03-exprense-start",
+  "name": "03-expense-tracker",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
