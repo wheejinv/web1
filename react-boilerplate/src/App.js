@@ -3,7 +3,9 @@ import './App.scss';
 
 function App(props) {
 	return (
-		<h1>Hello World</h1>
+		<div>
+			<h1>Hello World</h1>
+		</div>
 	);
 }
 
