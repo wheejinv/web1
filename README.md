@@ -5,6 +5,7 @@
 javascript, css, scss, webpack, node, mongodb, react
 
 ### history
+- [유데미 - 【글로벌 Best】 React 완벽 가이드 with Redux, Next.js, TypeScript](https://www.udemy.com/course/best-react/)
 - [리액트를 다루는 기술](https://github.com/velopert/learning-react)
 - [유데미 - The Complete 2022 Web Development Bootcamp](https://www.udemy.com/course/the-complete-web-development-bootcamp/)
 - [생활코딩 webpack 수업](https://www.youtube.com/watch?v=cp_MeXO2fLg&list=PLuHgQVnccGMChcT9IKopFDoAIoTA-03DA&index=1)
