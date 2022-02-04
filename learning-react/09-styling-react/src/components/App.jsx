@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './App.css';
+import styles from './App.scss';
 import classNames from "classnames/bind";
 
 const cn = classNames.bind(styles);
@@ -24,9 +24,13 @@ function App(props) {
 			// classNames/bind 라이브러리를 활용해서 클래스가 여러개인 경우 처리를 쉽게
 			className={cn(
 				'box',
-				{blue: Math.random() < 0.5}, // true or false 로 조건부 스타일링을 할 때 매우 편리하다.
+				{blue: true}, // true or false 로 조건부 스타일링을 할 때 매우 편리하다.
 			)}
-		/>
+			// className={'box blue'}
+		>
+			{/* .box .box-inside*/}
+			<div className='box-inside' />
+		</div>
 	);
 }
 
