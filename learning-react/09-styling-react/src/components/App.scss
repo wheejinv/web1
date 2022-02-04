@@ -1,11 +1,4 @@
-$size: 100px;
-
-// 자주 사용하는 구문은 믹스인으로 다시 이용할 수 있음.
-@mixin place-at-center() {
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
+@import '../scssGlobal/utils';
 
 .box {
 	display: inline-block;
