@@ -30,6 +30,8 @@ function App(props) {
 		>
 			{/* .box .box-inside*/}
 			<div className='box-inside' />
+
+			{/* 자바스크립트 파일 안에 스타일을 선언하는 방식은 MaterialUI 사용해봤었음. 깃 로그 참고 */}
 		</div>
 	);
 }
