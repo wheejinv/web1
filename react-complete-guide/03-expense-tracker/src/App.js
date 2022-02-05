@@ -31,14 +31,14 @@ function App(props) {
 		expenseData.id = Math.random()
 
 		setExpenses(prevState => {
-			return [...prevState, expenseData]
+			return [expenseData, ...prevState]
 		})
 	}
 
 	return (
 		<div>
 			<NewExpense onAddExpense={addExpenseHandler}/>
-			<Expenses items={expenses}/>
+			<Expenses expenses={expenses}/>
 		</div>
 	);
 }

@@ -6,14 +6,16 @@ import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
 
 function Expenses(props) {
-	const {items} = props;
+	const {expenses} = props;
 	const [filteredYear, setFilteredYear] = useState('2020');
 
 	function filterChangeHandler(selectedYear) {
-		console.log(selectedYear)
-		// setSelectedYear(year);
+		setFilteredYear(selectedYear);
 	}
 
+	const filteredExpenses = expenses.filter(expense => {
+		return expense.date.getFullYear().toString() === filteredYear;
+	});
 	return (
 		// Card 랩퍼 컴포넌트를 사용해서 .card 클래스의 스타일을 적용시켰다. (모서리 둥글게)
 		<Card className='expenses'>
@@ -21,13 +23,13 @@ function Expenses(props) {
 				onChangeFilter={filterChangeHandler}
 				selected={filteredYear}
 			/>
-			{items.map(item => {
+			{filteredExpenses.map(expense => {
 				return (
 					<ExpenseItem
-						key={item.id}
-						title={item.title}
-						amount={item.amount}
-						date={item.date}
+						key={expense.id}
+						title={expense.title}
+						amount={expense.amount}
+						date={expense.date}
 					/>
 				)
 			})}
