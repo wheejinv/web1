@@ -1,6 +1,8 @@
+import React from "react";
 import './ExpenseItem.scss'
+
 import ExpenseDate from "./ExpenseDate";
-import Card from "./Card";
+import Card from "../UI/Card";
 
 function ExpenseItem(props) {
 	let {title, date, amount} = props;

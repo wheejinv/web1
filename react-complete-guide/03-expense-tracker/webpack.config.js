@@ -41,10 +41,6 @@ module.exports = {
 	mode: "development",
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		// https://stackoverflow.com/questions/44404730/why-do-you-need-to-import-react-multiple-times-in-parent-and-child-components
-		new webpack.ProvidePlugin({
-			React: 'react'
-		}),
 	],
 	devtool: "source-map",
 	devServer: {
