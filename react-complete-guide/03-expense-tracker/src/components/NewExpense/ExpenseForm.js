@@ -36,6 +36,8 @@ function ExpenseForm(props) {
 
 		console.log(expenseData);
 
+		props.onAddExpense(expenseData);
+
 		setInput({
 			title: "",
 			amount: "",
