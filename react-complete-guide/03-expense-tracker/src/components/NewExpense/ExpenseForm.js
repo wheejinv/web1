@@ -31,7 +31,9 @@ function ExpenseForm(props) {
 	function submitHandler(e) {
 		const {title, amount, date} = input;
 		const expenseData = {
-			title, amount, date: new Date(date)
+			title,
+			amount: parseFloat(amount),
+			date: new Date(date)
 		}
 
 		console.log(expenseData);
