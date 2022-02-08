@@ -1,8 +1,9 @@
-import React, {useReducer, useState} from 'react';
+import React, {useContext, useReducer, useState} from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import AuthContext from "../../stroe/auth-context";
 
 // 컴토넌트 함수 밖에서 정의된 이유가 있음.
 // 리듀서 함수 안에서는 컴포넌트 함수 안에서 만들어진 데이터는 필요하지 않기 때문
@@ -44,6 +45,8 @@ const Login = (props) => {
 	// init: 초기 상태 설정.
 	// const [state, dispatch] = useReducer(reducer, initialState, init);
 
+	const authCtx = useContext(AuthContext);
+
 	const [state, dispatchInput] = useReducer(reducer, {
 		emailValue: '',
 		passwordValue: '',
@@ -69,7 +72,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(state.emailValue, state.passwordValue);
+		authCtx.onLogIn(state.emailValue, state.passwordValue);
   };
 
   return (
