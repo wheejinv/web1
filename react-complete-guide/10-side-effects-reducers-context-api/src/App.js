@@ -30,6 +30,10 @@ function App() {
 
   return (
     <React.Fragment>
+			{/*
+			상태값 들이나 핸들러들이 다수의 컴포넌트를 통과하는 건 흔하지만, 앱이 복잡해 질수록 문제가 될 수 있다.
+			이런 경우 React Context 라는 개념을 사용해서 (긴 props chain을 만들지 않아도) 컴포넌트로 직접 보낼 수 있게 됨.
+			*/}
       <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
