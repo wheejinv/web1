@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import AuthContext from "./stroe/auth-context";
 
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
@@ -29,17 +30,22 @@ function App() {
   };
 
   return (
-    <React.Fragment>
+		// provider 가 있어야 context 의 값을 변경할 수 있음.
+		<AuthContext.Provider
+			value={{
+				isLoggedIn: isLoggedIn,
+			}}
+		>
 			{/*
 			상태값 들이나 핸들러들이 다수의 컴포넌트를 통과하는 건 흔하지만, 앱이 복잡해 질수록 문제가 될 수 있다.
 			이런 경우 React Context 라는 개념을 사용해서 (긴 props chain을 만들지 않아도) 컴포넌트로 직접 보낼 수 있게 됨.
 			*/}
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <MainHeader onLogout={logoutHandler} />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {isLoggedIn && <Home onLogout={logoutHandler} />}
       </main>
-    </React.Fragment>
+		</AuthContext.Provider>
   );
 }
 
