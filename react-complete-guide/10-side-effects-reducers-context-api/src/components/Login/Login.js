@@ -6,33 +6,37 @@ import Button from '../UI/Button/Button';
 
 // 컴토넌트 함수 밖에서 정의된 이유가 있음.
 // 리듀서 함수 안에서는 컴포넌트 함수 안에서 만들어진 데이터는 필요하지 않기 때문
-const emailReducer = (state, action) => {
-	if (action.type === 'USER_INPUT') {
+const reducer = (state, action) => {
+	if (action.type === 'USER_EMAIL_INPUT') {
+		const isValidEmail = action.val.includes('@');
+
 		return {
-			value: action.val,
-			isValid: action.val.includes('@')
+			...state,
+			emailValue: action.val,
+			isValidEmail,
+			isFormValid: isValidEmail && state.isValidPassword
 		}
-	} else if (action.type === 'INPUT_BLUR') {
-		// 새로운 상태 스냅숏을 반환해야 하기 때문에 최싱 상태 스냅숏(state) 을 사용한다.
+	} else if (action.type === 'USER_PASSWORD_INPUT') {
+		const isValidPassword = action.val.trim().length > 6;
+
 		return {
-			value: state.value,
-			isValid: state.value.includes('@')
+			...state,
+			passwordValue: action.val,
+			isValidPassword,
+			isFormValid: state.isValidEmail && isValidPassword
 		}
 	}
 
 	return {
-		value: '',
-		isValid: false
+		emailValue: '',
+		passwordValue: '',
+		isValidEmail: false,
+		isValidPassword: false,
+		isFormValid: false,
 	}
 }
 
 const Login = (props) => {
-  // const [enteredEmail, setEnteredEmail] = useState('');
-  // const [emailIsValid, setEmailIsValid] = useState();
-  const [enteredPassword, setEnteredPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState();
-  const [formIsValid, setFormIsValid] = useState(false);
-
 	// state: 최산 상태 스냅샷
 	// dispatchFn: 상태 스냅샷을 업데이트 해주는 함수, 하나의 액션을 디스패치하는데 reducerFn 이 소비하게 됨.
 	// reducerFn: (prevState, action) => newState : 새로 업데이트된 상태를 반환
@@ -40,49 +44,32 @@ const Login = (props) => {
 	// init: 초기 상태 설정.
 	// const [state, dispatch] = useReducer(reducer, initialState, init);
 
-	const [emailState, dispatchEmail] = useReducer(emailReducer, {
-		value: '',
-		isValid: null, // false 값이면 div className 에 invalid 값이 붙게 되어 오류처럼 보임.
+	const [state, dispatchInput] = useReducer(reducer, {
+		emailValue: '',
+		passwordValue: '',
+		isValidEmail: null,
+		isValidPassword: null,
+		isFormValid: false,
 	});
 
 
 	const emailChangeHandler = (event) => {
-    // setEnteredEmail(event.target.value);
-		dispatchEmail({
-			type: 'USER_INPUT',
+		dispatchInput({
+			type: 'USER_EMAIL_INPUT',
 			val: event.target.value
 		});
-
-		setFormIsValid(
-			// 리액트가 업데이트 하는 방법에 따라서 enteredPassword 가 최신 스냅샷이 아닐수도 있음
-			event.target.value.includes('@') && enteredPassword.trim().length > 6
-		);
   };
 
   const passwordChangeHandler = (event) => {
-    setEnteredPassword(event.target.value);
-
-		setFormIsValid(
-			event.target.value.trim().length > 6 && emailState.isValid
-		);
-  };
-
-  const validateEmailHandler = () => {
-		dispatchEmail({
-			type: 'INPUT_BLUR', // 인풋이 포커스를 읽어서 흐려졌다(blur)
+		dispatchInput({
+			type: 'USER_PASSWORD_INPUT',
+			val: event.target.value
 		})
-  };
-
-  const validatePasswordHandler = () => {
-		// 다른 상태값(enteredPassword) 을 보고 passwordIsValid 상태를 설정하는 것
-		// = 다른 상태에 의존하는 상태를 업데이트하는 경우.
-		// => 이 경우 useReducer 가 좋은 선택임.
-    setPasswordIsValid(enteredPassword.trim().length > 6);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, enteredPassword);
+    props.onLogin(state.emailValue, state.passwordValue);
   };
 
   return (
@@ -90,34 +77,32 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${
-            emailState.isValid === false ? classes.invalid : ''
+            state.isValidEmail === false ? classes.invalid : ''
           }`}
         >
           <label htmlFor="email">E-Mail</label>
           <input
             type="email"
             id="email"
-            value={emailState.value}
+            value={state.emailValue}
             onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
           />
         </div>
         <div
           className={`${classes.control} ${
-            passwordIsValid === false ? classes.invalid : ''
+            state.isValidPassword === false ? classes.invalid : ''
           }`}
         >
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            value={enteredPassword}
+            value={state.passwordValue}
             onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn} disabled={!state.isFormValid}>
             Login
           </Button>
         </div>
