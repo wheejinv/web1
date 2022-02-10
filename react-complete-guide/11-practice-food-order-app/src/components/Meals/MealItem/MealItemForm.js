@@ -1,11 +1,34 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './MealItemForm.module.css'
 import Input from "../../UI/Input";
 
 function MealItemForm(props) {
+	const [amountIsValid, setAmountIsValid] = useState(true);
+	const amountInputRef = useRef();
+
+	const submitHandler = event => {
+		event.preventDefault();
+
+		const enteredAmount = amountInputRef.current.value;
+		const enteredAmountNumber = +enteredAmount;
+
+		if (
+			enteredAmount.trim().length === 0 ||
+			enteredAmountNumber < 1 ||
+			enteredAmountNumber > 5
+		) {
+			setAmountIsValid(false);
+			return;
+		}
+
+		props.onAddToCart(enteredAmountNumber);
+	}
+
+
 	return (
-		<form className={styles.form}>
+		<form className={styles.form} onSubmit={submitHandler}>
 			<Input
+				ref={amountInputRef} // 커스텀 컴포넌트라 작동안해서 forwarRef 사용함.
 				label="Amount"
 				input={{
 					id: 'amount_' + props.id,
@@ -16,6 +39,7 @@ function MealItemForm(props) {
 					defaultValue: '1'
 				}}/>
 			<button>+ Add</button>
+			{!amountIsValid && <p>Please Enter a Valid Amount</p>}
 		</form>
 	);
 }
