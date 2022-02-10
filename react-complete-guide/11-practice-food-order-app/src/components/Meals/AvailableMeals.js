@@ -34,15 +34,14 @@ const DUMMY_MEALS = [
 function AvailableMeals(props) {
 	const mealsList = DUMMY_MEALS.map( meal => {
 		return (
-			<Card key={meal.id}>
-				<MealItem
-					// jsx babel compiler 검색해서 react 코드로 변환된 결과를 보면 이런 값들이 어떻게 변환되서 들어가는지 유추 가능함.
-					// https://stackoverflow.com/questions/42620847/is-there-a-react-shorthand-for-passing-props
-					{
-						...meal
-					}
-				/>
-			</Card>
+			<MealItem
+				// jsx babel compiler 검색해서 react 코드로 변환된 결과를 보면 이런 값들이 어떻게 변환되서 들어가는지 유추 가능함.
+				// https://stackoverflow.com/questions/42620847/is-there-a-react-shorthand-for-passing-props
+				{
+					...meal
+				}
+				key={meal.id}
+			/>
 		)
 	});
 

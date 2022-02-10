@@ -6,33 +6,50 @@ const defaultCartState = {
 	totalAmount: 0,
 };
 
+const getTotalAmount = items => {
+	let totalAmountNum = items.reduce((acc, curr) => acc + curr.amount * parseFloat(curr.price), 0)
+
+	return totalAmountNum.toFixed(2);
+}
+
 const cartReducer = (cartState, action) => {
+	let items = cartState.items;
+
 	if (action.type === 'ADD_ITEM') {
 		const item = action.item;
 		let index = cartState.items.findIndex(item => item.id === action.item.id);
 
 		if (index > -1) {
 			// 아이템이 있는 경우
-			let items = [...cartState.items];
-			items[index].amount += item.amount;
+			items[index].amount += 1;
 
 			return {
 				items,
-				totalAmount: items.reduce((acc, curr) => acc + curr.amount * parseFloat(curr.price), 0)
+				totalAmount: getTotalAmount(items)
 			}
 		} else {
-			let items = [...cartState.items, action.item];
+			items.push(action.item);
 			return {
 				items,
-				totalAmount: items.reduce((acc, curr) => acc + curr.amount * parseFloat(curr.price), 0)
+				totalAmount: getTotalAmount(items)
 			}
 		}
 	} else if (action.type === 'REMOVE_ITEM') {
 		let id = action.id;
-		let items = [...cartState.items].filter( item => item.id !== id);
+		let index = items.findIndex(item => item.id === id);
+
+		// index === -1 인 경우 예외처리가 물론 .. 필요하겠지만 패스
+		let itemAmount = items[index].amount;
+
+		if (itemAmount > 1) {
+			items[index].amount -= 1;
+		} else {
+			items = items.filter( item => item.id !== id);
+		}
+
 		return {
 			items,
-			totalAmount: items.reduce((acc, curr) => acc + curr.amount * parseFloat(curr.price), 0)
+			totalAmount: getTotalAmount(items)
 		}
 	}
 }
