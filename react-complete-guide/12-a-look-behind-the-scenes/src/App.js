@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useCallback, useState} from 'react';
 
 import Button from './components/UI/Button/Button';
 import DemoOutput from './components/Demo/DemoOutput';
@@ -9,9 +9,11 @@ function App() {
 
   console.log('APP RUNNING');
 
-  const toggleParagraphHandler = () => {
+	// 저장하고 싶은 함수를 useCallback 으로 래핑하면 됨.
+	// useCallback은 우리가 선택한 함수를 React의 내부 저장소 어딘가에 저장함.
+  const toggleParagraphHandler = useCallback(() => {
     setShowParagraph((prevShowParagraph) => !prevShowParagraph);
-  };
+  }, []);
 
   return (
     <div className="app">
