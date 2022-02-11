@@ -25,6 +25,19 @@ class Users extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		// try {
+		//   someCodeWhichMightFail()
+		// } catch (err) {
+		//   // handle error
+		// }
+
+		// ErrorBounday 처리를 위해 강제적으로 에러를 던짐.
+		if (this.props.users.length === 0) {
+			throw new Error('No users provided!');
+		}
+	}
+
 	render() {
 		const usersList = (
 			<ul>
