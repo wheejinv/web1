@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
@@ -8,7 +8,8 @@ function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
-	const fetchMovieHandler = async () => {
+	// 컴포넌트가 리렌더링될때마다 함수를 가리키는 포인터가 바뀌기 때문에 상수로 만들어준다.
+	const fetchMovieHandler = useCallback(async () => {
 		setIsLoading(true);
 		setError(null);
 
@@ -39,7 +40,11 @@ function App() {
 		}
 
 		setIsLoading(false);
-	}
+	}, []) // 상태 업데이트 함수는 디펜던시로 추가할 필요가 없고, fetch 함수는 글로벌 브라우저 API 라서 디펜던시가 아님.
+
+	useEffect(async () => {
+		await fetchMovieHandler();
+	}, [fetchMovieHandler]); // effect 함수 내에 쓰이는 모든 디펜던시를 디펜던시 배열 내에 나열하는 것이 좋다.
 
 	let content = <p>Found no movies.</p>
 
