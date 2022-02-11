@@ -41,18 +41,27 @@ function App() {
 		setIsLoading(false);
 	}
 
+	let content = <p>Found no movies.</p>
+
+	if (movies.length > 0) {
+		content = <MoviesList movies={movies} />
+	}
+
+	if (error) {
+		content = <p>{error}</p>
+	}
+
+	if (isLoading) {
+		content = <p>데이터 가져오는 중...</p>
+	}
+
   return (
     <React.Fragment>
       <section>
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section>
-				{!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
-
-				{/*폴백 예시*/}
-				{!isLoading && movies.length == 0 && !error && <p>Found No Movies.</p>}
-				{isLoading && <p>데이터 가져오는 중...</p>}
-				{!isLoading && error && <p>{error}</p>}
+				{content}
       </section>
     </React.Fragment>
   );
