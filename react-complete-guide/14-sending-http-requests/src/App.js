@@ -15,7 +15,7 @@ function App() {
 		setError(null);
 
 		try {
-			const response = await fetch('https://swapi.dev/api/films/');
+			const response = await fetch('https://whee-hello-firebase-default-rtdb.firebaseio.com/movies.json');
 
 			// 잘못된 url 요청이라면 이 부분에서 에러가 발생. Unexpected token < in JSON at position 1
 			const json = await response.json();
@@ -26,14 +26,17 @@ function App() {
 				throw new Error('Something went wrong!');
 			}
 
-			let fetchedMovieData = json.results.map( (item, index) => {
-				return {
-					id: item.episode_id,
-					title: item.title,
-					openingText: item.opening_crawl,
-					releaseDate: item.release_date,
-				}
-			});
+			let fetchedMovieData = [];
+			for (const key in json) {
+				let {title, openingText, releaseDate} = json[key];
+
+				fetchedMovieData.push({
+					id: key,
+					title,
+					openingText,
+					releaseDate
+				})
+			}
 
 			setMovies(fetchedMovieData);
 		} catch(e) {
@@ -61,8 +64,17 @@ function App() {
 		content = <p>데이터 가져오는 중...</p>
 	}
 
-	function addMovieHandler(movie) {
-		console.log(movie);
+	async function addMovieHandler(movie) {
+		const response = await fetch('https://whee-hello-firebase-default-rtdb.firebaseio.com/movies.json', {
+			method: 'POST',
+			body: JSON.stringify(movie),
+			headers: {
+				'Content-type': 'application/json'
+			}
+		});
+		const data = await response.json();
+
+		console.log(data);
 	}
 
   return (
