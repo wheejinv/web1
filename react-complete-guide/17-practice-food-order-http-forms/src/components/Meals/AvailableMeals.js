@@ -5,8 +5,6 @@ import {useEffect, useState} from "react";
 import useHttp from "../../hooks/use-http";
 
 const AvailableMeals = () => {
-	console.warn('availableMeals')
-
 	let { isLoading, error, sendRequest } = useHttp();
 	const [mealsList, setMealsList] = useState('');
 
@@ -37,6 +35,8 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
+				{isLoading && <p>loading...</p>}
+				{error && <p>{error}</p>}
         <ul>{mealsList}</ul>
       </Card>
     </section>
