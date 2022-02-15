@@ -5,8 +5,10 @@ import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import CartContext from '../../store/cart-context';
 import Checkout from "./Checkout";
+import useHttp from "../../hooks/use-http";
 
 const Cart = (props) => {
+	const { isLoading, error, sendRequest } = useHttp();
   const cartCtx = useContext(CartContext);
 	const [isCheckout, setIsCheckout] = useState(false);
 
@@ -36,6 +38,22 @@ const Cart = (props) => {
     </ul>
   );
 
+	const submitOrderHandler = (userData) => {
+		sendRequest( data => {
+			console.log(data);
+		}, {
+			url: 'https://whee-hello-firebase-default-rtdb.firebaseio.com/orders.json',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: {
+				user: userData,
+				orderedItems: cartCtx.items,
+			},
+		})
+	}
+
   return (
     <Modal onClose={props.onClose}>
       {cartItems}
@@ -43,7 +61,7 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-			{isCheckout && <Checkout onCancel={props.onClose} />}
+			{isCheckout && <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />}
       <div className={classes.actions}>
 				{!isCheckout && <button className={classes['button--alt']} onClick={props.onClose}>
           Close
