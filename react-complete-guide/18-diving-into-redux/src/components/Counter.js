@@ -6,6 +6,7 @@ import classes from './Counter.module.css';
 
 // connect:  클래스 컴포넌트에서는 커텍트 함수를 사용할 수도 있음.
 import {useSelector, connect, useDispatch} from "react-redux";
+import {useState} from "react";
 
 const Counter = () => {
 	// 함수를 인자로 넘기면 리액트 리덕스가 실행해서 어떤 데이터를 스토어에서 추출할지 결정한다.
@@ -13,6 +14,7 @@ const Counter = () => {
 	// useSelector 를 사용할 때 리액트 리덕스가 자동으로 서브스크립션을 설정함.
 	// react-redux: 컴포넌트를 위한 리덕스-스토어
 	const counter = useSelector(state => state.counter);
+	const show = useSelector(state => state.showCounter);
 
 	const dispatch = useDispatch();
 
@@ -35,12 +37,16 @@ const Counter = () => {
 		})
 	}
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+		dispatch({
+			type: 'toggle'
+		})
+	};
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+			{show && <div className={classes.value}>{counter}</div>}
 			<div>
 				<button onClick={incrementHandler}>Increment</button>
 				<button onClick={increaseHandler}>Increment by 5</button>
