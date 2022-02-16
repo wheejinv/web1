@@ -1,11 +1,8 @@
-// import Counter from './components/Counter';
-
-
-import CounterClass from "./components/CounterClass";
+import Counter from './components/Counter';
 
 function App() {
   return (
-    <CounterClass />
+    <Counter />
   );
 }
 
