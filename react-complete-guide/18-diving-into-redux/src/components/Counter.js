@@ -3,10 +3,9 @@ import classes from './Counter.module.css';
 // useSelector: 리액트-리덕스 팀이 만든 커스텀 훅.
 // useStore 훅을 사용하면 스토어에 바로 접근이 가능하다.
 // 하지만 useSelector 가 더 편리함. 자동으로 상태의 일부를 선택하기 해줌.
-
 // connect:  클래스 컴포넌트에서는 커텍트 함수를 사용할 수도 있음.
-import {useSelector, connect, useDispatch} from "react-redux";
-import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {counterActions} from "../store";
 
 const Counter = () => {
 	// 함수를 인자로 넘기면 리액트 리덕스가 실행해서 어떤 데이터를 스토어에서 추출할지 결정한다.
@@ -19,28 +18,19 @@ const Counter = () => {
 	const dispatch = useDispatch();
 
 	const incrementHandler = (e) => {
-		dispatch({
-			type: 'increment'
-		})
+		dispatch(counterActions.increment());
 	}
 
 	const decrementHandler = (e) => {
-		dispatch({
-			type: 'decrement'
-		})
+		dispatch(counterActions.decrement());
 	}
 
 	const increaseHandler = (e) => {
-		dispatch({
-			type: 'increase',
-			amount: 5,
-		})
+		dispatch(counterActions.increase(5));
 	}
 
   const toggleCounterHandler = () => {
-		dispatch({
-			type: 'toggle'
-		})
+		dispatch(counterActions.toggleCounter());
 	};
 
   return (
