@@ -4,7 +4,7 @@ import classes from './Counter.module.css';
 // useStore 훅을 사용하면 스토어에 바로 접근이 가능하다.
 // 하지만 useSelector 가 더 편리함. 자동으로 상태의 일부를 선택하기 해줌.
 
-// connect:  클래스 컴포넌트가 아닌 함수 컴포넌트에서는 커텍트 함수를 사용할 수도 있음.
+// connect:  클래스 컴포넌트에서는 커텍트 함수를 사용할 수도 있음.
 import {useSelector, connect, useDispatch} from "react-redux";
 
 const Counter = () => {
