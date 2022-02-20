@@ -4,7 +4,7 @@ import Products from './components/Shop/Products';
 import {useDispatch, useSelector} from "react-redux";
 import {Fragment, useEffect} from "react";
 import Notification from "./components/UI/Notification";
-import {sendCartData} from "./store/cart-slice";
+import {fetchCartData, sendCartData} from "./store/cart-actions";
 
 let isInitial = true;
 
@@ -15,12 +15,18 @@ function App() {
 	const notification = useSelector((state) => state.ui.notification);
 
 	useEffect(() => {
+		dispatch(fetchCartData());
+	}, [dispatch]);
+
+	useEffect(() => {
 		if (isInitial) {
 			isInitial = false;
 			return;
 		}
 
-		dispatch(sendCartData(cart))
+		if (cart.changed) {
+			dispatch(sendCartData(cart))
+		}
 
 	// useDispatch에 의해 생성된 dispatch 의존성 추가 - react-redux가 이 함수는 절대 변하지 않을것이라고 보증함.
 	}, [cart, dispatch]);
