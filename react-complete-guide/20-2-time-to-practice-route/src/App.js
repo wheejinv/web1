@@ -4,10 +4,11 @@ import NotFound from "./pages/NotFound";
 import QuoteDetail from "./pages/QuoteDetail";
 import NewQuote from "./pages/NewQuote";
 import Comments from "./components/comments/Comments";
+import Layout from "./components/layout/Layout";
 
 function App() {
 	return (
-		<div>
+		<Layout>
 			<Routes>
 				<Route path="/" element={<Navigate to="/quotes"/>}/>
 				<Route path="/quotes" element={<AllQuotes/>}/>
@@ -17,7 +18,7 @@ function App() {
 				<Route path="/new-quote" element={<NewQuote/>}/>
 				<Route path="*" element={<NotFound/>}/>
 			</Routes>
-		</div>
+		</Layout>
 	);
 }
 
