@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import {Link, Outlet, useParams} from "react-router-dom";
 
 function QuoteDetail(props) {
+	const params = useParams();
+
 	return (
-		<div>
+		<Fragment>
 			<h1>QuoteDetail</h1>
-		</div>
+			<p>{params.quoteId}</p>
+
+			<Link to={'comments'}>gogo</Link>
+
+			<Outlet />
+		</Fragment>
 	);
 }
 
