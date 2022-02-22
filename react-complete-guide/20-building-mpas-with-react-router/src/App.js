@@ -10,7 +10,7 @@ function App() {
 			<MainHeader/>
 			<main>
 				<Routes>
-					<Route path="/welcome" element={<Welcome/>}/>
+					<Route path="/welcome/*" element={<Welcome/>}/> {/*<-- allow sub-route matches*/}
 					<Route path="/products" element={<Products/>}/>
 					{/*productId: 동적 경로 세그먼트 - 아무값이나 받을 수 있음.*/}
 					<Route path="/products/:productId" element={<ProductDetail/>}/>
