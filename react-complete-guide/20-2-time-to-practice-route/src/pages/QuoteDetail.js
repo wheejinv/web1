@@ -1,26 +1,42 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {Link, Outlet, Route, Routes, useParams} from "react-router-dom";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
-
-const DUMMY_QUOTES = [
-	{ id: 'q1', author: 'Max', text: 'Learning React is fun!' },
-	{ id: 'q2', author: 'Maximilian', text: 'Learning React is great!' },
-];
+import useHttp from "../hooks/use-http";
+import {getSingleQuote} from "../lib/api";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
+import NoQuotesFound from "../components/quotes/NoQuotesFound";
 
 function QuoteDetail(props) {
 	const params = useParams();
+	const {sendRequest, status, error, data: loadedQuote} = useHttp(getSingleQuote, true);
 
-	const quote = DUMMY_QUOTES.find(quote => quote.id === params.quoteId);
+	const {quoteId} = params;
 
-	if (!quote) {
-		return <p>No quote found!</p>
+	useEffect(async () => {
+		await sendRequest(quoteId);
+	}, [sendRequest, quoteId]);
+
+	if (status === 'pending') {
+		return (
+			<div className="centered">
+				<LoadingSpinner />
+			</div>
+		)
+	}
+
+	if (error) {
+		return <p className='centered focused'>{error}</p>
+	}
+
+	if (status === 'completed' && !loadedQuote.text) {
+		return <NoQuotesFound />
 	}
 
 	return (
 		<Fragment>
 			<h1>QuoteDetail</h1>
 			{/*{...quote} 는 id={quote.id} author={quote.author} text={quote.text} 와 같음. */}
-			<HighlightedQuote {...quote}/>
+			<HighlightedQuote {...loadedQuote}/>
 			<Routes>
 				<Route path={`/`} element={(
 					<div className="centered">
