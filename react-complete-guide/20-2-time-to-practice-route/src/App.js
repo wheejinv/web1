@@ -12,7 +12,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Navigate to="/quotes"/>}/>
 				<Route path="/quotes" element={<AllQuotes/>}/>
-				<Route path="/quotes/:quoteId/" element={<QuoteDetail/>}>
+				<Route path="/quotes/:quoteId" element={<QuoteDetail/>}>
 					<Route path="comments" element={<Comments/>}/>
 				</Route>
 				<Route path="/new-quote" element={<NewQuote/>}/>
