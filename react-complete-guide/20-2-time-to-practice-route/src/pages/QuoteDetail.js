@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {Link, Outlet, useParams} from "react-router-dom";
+import {Link, Outlet, Route, Routes, useParams} from "react-router-dom";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
 
 const DUMMY_QUOTES = [
@@ -21,8 +21,15 @@ function QuoteDetail(props) {
 			<h1>QuoteDetail</h1>
 			{/*{...quote} 는 id={quote.id} author={quote.author} text={quote.text} 와 같음. */}
 			<HighlightedQuote {...quote}/>
+			<Routes>
+				<Route path={`/`} element={(
+					<div className="centered">
+						<Link className="btn--flat" to={'comments'}>Load Comments</Link>
+					</div>
+				)}>
 
-			<Link to={'comments'}>gogo</Link>
+				</Route>
+			</Routes>
 
 			<Outlet />
 		</Fragment>
