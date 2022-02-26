@@ -53,7 +53,7 @@ const AuthForm = () => {
 			const json = await response.json();
 
 			if (response.ok) {
-				authCtx.onLogin(json.idToken);
+				authCtx.onLogin(json.idToken, Date.now() + parseInt(json.expiresIn) * 1000);
 				navigate('/', {replace: true});
 
 			} else {
