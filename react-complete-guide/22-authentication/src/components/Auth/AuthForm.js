@@ -54,7 +54,7 @@ const AuthForm = () => {
 
 			if (response.ok) {
 				authCtx.onLogin(json.idToken);
-				navigate('/');
+				navigate('/', {replace: true});
 
 			} else {
 				console.log(json);

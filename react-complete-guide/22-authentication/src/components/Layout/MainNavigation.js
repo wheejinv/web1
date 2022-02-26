@@ -12,7 +12,7 @@ const MainNavigation = () => {
 	const logoutHandler = e => {
 		authCtx.onLogout();
 
-		navigate('/');
+		navigate('/', {replace: true});
 	}
 
 	return (

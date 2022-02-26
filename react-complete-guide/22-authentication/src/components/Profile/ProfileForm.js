@@ -1,10 +1,12 @@
 import classes from './ProfileForm.module.css';
 import {useContext, useRef} from "react";
 import AuthContext from "../../store/auth-context";
+import {useNavigate} from "react-router-dom";
 
 const ProfileForm = () => {
 	const newPasswordInputRef = useRef();
 	const authCtx = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const submitHandler = async e => {
 		e.preventDefault();
@@ -28,6 +30,8 @@ const ProfileForm = () => {
 		const json = response.json();
 
 		// todo 응답값에 따른 피드백 주기
+
+		navigate('/', {replace: true});
 	}
 
   return (
