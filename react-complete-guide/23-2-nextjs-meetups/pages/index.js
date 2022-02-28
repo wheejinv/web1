@@ -42,4 +42,18 @@ export async function getStaticProps() {
 	}
 }
 
+// 요청이 있을때마다 페이지를 다시 만들어야 할 때가 있음.
+// 여기에 쓰이는 코드는 어떤 코드라도 서버에서 실행됨.
+// 인증 같은 요청 객체에 접속할 필요가 있는 경우 사용.
+// export async function getServerSideProps(context) {
+// 	const req = context.req;
+// 	const res = context.res;
+//
+// 	return {
+// 		props: {
+// 			meetups: DUMMY_MEETUPS,
+// 		}
+// 	}
+// }
+
 export default HomePage;
