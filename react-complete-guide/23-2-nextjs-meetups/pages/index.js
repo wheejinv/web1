@@ -33,6 +33,11 @@ export async function getStaticProps() {
 	return {
 		props: {
 			meetups: DUMMY_MEETUPS,
+
+			// Incremental Static Regeneration 이라는 피처 잠금 해제
+			// 숫자를 설정하면 빌드 프로세스 중에는 페이지가 만들어지지 않음.
+			// 페이지 요청이 있다면 하지만 [3600] 초마다 게속 서버에서 만들어짐.
+			revalidate: 3600
 		}
 	}
 }
