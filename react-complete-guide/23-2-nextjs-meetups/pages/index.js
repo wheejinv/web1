@@ -17,10 +17,24 @@ const DUMMY_MEETUPS = [
 	}
 ]
 
-function HomePage() {
+function HomePage(props) {
 	return (
-		<MeetupList meetups={DUMMY_MEETUPS}/>
+		<MeetupList meetups={props.meetups}/>
 	);
+}
+
+// 예약된 함수 이름
+// NextJS가 이 이름을 가진 함수를 발견하면, 프리 렌더링 과정 동안 이 함수를 실행함.
+// 비동기를 허용함.
+// 보통은 서버에서만 작동하고, 파일 시스템 혹은 DB 에 접근 가능.
+// 빌드 과정에만 실행됨.
+export async function getStaticProps() {
+	// fetch data from an API
+	return {
+		props: {
+			meetups: DUMMY_MEETUPS,
+		}
+	}
 }
 
 export default HomePage;
