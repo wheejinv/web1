@@ -1,21 +1,5 @@
 import MeetupList from "../components/meetups/MeetupList";
-
-const DUMMY_MEETUPS = [
-	{
-		id: 'm1',
-		image: 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLoX5W%2Fbtqz6W4AmF0%2FrRSQrvEKfa1M8YBLH6KDIK%2Fimg.jpg',
-		title: 'A First Meetup',
-		address: 'Some address, 1234, city',
-		description: 'This is a first meetup'
-	},
-	{
-		id: 'm2',
-		image: 'https://t1.daumcdn.net/cfile/tistory/99A7B7365A9F7BA61B',
-		title: 'A Second Meetup',
-		address: 'nice address, 1234, city',
-		description: 'This is a second meetup'
-	}
-]
+import {MongoClient} from "mongodb";
 
 function HomePage(props) {
 	return (
@@ -30,9 +14,30 @@ function HomePage(props) {
 // 빌드 과정에만 실행됨.
 export async function getStaticProps() {
 	// fetch data from an API
+	const env = process.env;
+	const url = `mongodb://${env.ID}:${env.PASS}@${env.URL}/${env.DBNAME}?authSource=admin`;
+
+	const client = await MongoClient.connect(url);
+	const db = client.db();
+
+	const meetupCollection = db.collection('meetups');
+
+	const meetups = await meetupCollection.find().toArray();
+
+	client.close();
+
 	return {
 		props: {
-			meetups: DUMMY_MEETUPS,
+			meetups: meetups.map( meetups => {
+				let {title, address, image, description} = meetups;
+				return {
+					id: meetups._id.toString(), // 객체라서 스트링으로 변경.
+					image,
+					address,
+					title,
+					description,
+				}
+			}),
 
 			// Incremental Static Regeneration 이라는 피처 잠금 해제
 			// 숫자를 설정하면 빌드 프로세스 중에는 페이지가 만들어지지 않음.
