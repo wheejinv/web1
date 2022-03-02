@@ -1,6 +1,8 @@
+import Head from 'next/head'
 import {useRouter} from "next/router";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 import {MongoClient, ObjectId} from "mongodb";
+import {Fragment} from "react";
 
 function Index(props) {
 	const router = useRouter();
@@ -8,9 +10,18 @@ function Index(props) {
 	console.log('asd', router.query.meetupId);
 
 	return (
-		<MeetupDetail
-			{...props.meetupData}
-		/>
+		<Fragment>
+			<Head>
+				<title>{props.meetupData.title}</title>
+				<meta
+					name='description'
+					content={props.meetupData.description}
+				/>
+			</Head>
+			<MeetupDetail
+				{...props.meetupData}
+			/>
+		</Fragment>
 	);
 }
 
