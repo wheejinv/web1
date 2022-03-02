@@ -84,9 +84,11 @@ export async function getStaticPaths() {
 		// NextJS 에게 paths 배열이 모든 지원되는 매개변수를 저장할지 아니면 일부만 저장할지 알려줌.
 		// 수백개의 페이지 중에 모든 것을 pre-generate 하지 않고 인기 있는 몇 개만 하고 싶을수도 있음.
 		// true, false, 'blocking'
+		// 'blocking': 페이지가 미리 생성될 때까지 사용자는 아무것도 볼 수 없고, 완성된 페이지가 제공
 		// false: paths 는 모든 meetupId 를 포함해야 함.
-		// true: 들어오는 요청에 관해서, 서버에서 meetupId로 동적으로 만듬.
-		fallback: false,
+		// true: 빈 페이지가 즉시 반환되고, 동적으로 생성된 콘텐츠를 풀다운한다.
+		// 			 들어오는 요청에 관해서, 서버에서 meetupId로 동적으로 만듬.
+		fallback: 'blocking',
 		paths: meetups.map( meetup => {
 			return {
 				params: {
