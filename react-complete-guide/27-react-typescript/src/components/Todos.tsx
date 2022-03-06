@@ -1,4 +1,5 @@
 import React from "react";
+import Todo from "../models/todos";
 
 
 // FC: Function Component
@@ -19,14 +20,14 @@ import React from "react";
 // 이유: https://velog.io/@velopert/create-typescript-react-component
 
 type TodosProps = {
-	items: string[];
+	items: Todo[];
 }
 
 function Todos({items}: TodosProps) {
 	return (
 		<div>
 			<ul>
-				{items.map((item, index) => <li key={index}>{item}</li>)}
+				{items.map((item, index) => <li key={item.id + index}>{item.text}</li>)}
 			</ul>
 		</div>
 	);
