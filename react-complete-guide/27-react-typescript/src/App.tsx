@@ -1,6 +1,7 @@
 import './App.scss';
 import Todos from "./components/Todos";
 import Todo from "./models/todos";
+import NewTodo from "./components/NewTodo";
 
 function App() {
 	const todos = [
@@ -11,6 +12,7 @@ function App() {
 	return (
 		<div>
 			<Todos items={todos}/>
+			<NewTodo/>
 		</div>
 	);
 }
