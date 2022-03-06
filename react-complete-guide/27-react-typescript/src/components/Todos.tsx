@@ -1,5 +1,6 @@
 import React from "react";
 import Todo from "../models/todos";
+import TodoItem from "./TodoItem";
 
 
 // FC: Function Component
@@ -27,7 +28,7 @@ function Todos({items}: TodosProps) {
 	return (
 		<div>
 			<ul>
-				{items.map((item, index) => <li key={item.id + index}>{item.text}</li>)}
+				{items.map((item, index) => <TodoItem todo={item} key={item.id + index}/>)}
 			</ul>
 		</div>
 	);
