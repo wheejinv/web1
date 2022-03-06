@@ -1,5 +1,6 @@
 import React from 'react';
 import Todo from "../models/todos";
+import styles from './TodoItem.module.css';
 
 type TodosProps = {
 	todo: Todo;
@@ -7,7 +8,7 @@ type TodosProps = {
 
 function TodoItem({todo}: TodosProps) {
 	return (
-		<li>
+		<li className={styles.item}>
 			{todo.text}
 		</li>
 	);

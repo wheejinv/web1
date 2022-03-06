@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "../models/todos";
 import TodoItem from "./TodoItem";
-
+import styles from './Todos.module.css'
 
 // FC: Function Component
 // 제너릭 유형에 구체적인 값을 꽂아 넣고 있음.
@@ -27,7 +27,7 @@ type TodosProps = {
 function Todos({items}: TodosProps) {
 	return (
 		<div>
-			<ul>
+			<ul className={styles.todos}>
 				{items.map((item, index) => <TodoItem todo={item} key={item.id + index}/>)}
 			</ul>
 		</div>

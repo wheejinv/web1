@@ -17,5 +17,5 @@
 		"noEmit": true,
 		"jsx": "react-jsx"
 	},
-	"include": ["src", "public/API"]
+	"include": ["src", "public/API", "declaration.d.ts"]
 }
