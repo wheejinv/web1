@@ -20,15 +20,16 @@ import styles from './Todos.module.css'
 // 근데 요즘에는 React.FC 를 안쓰고 있는 추세라고 함.
 // 이유: https://velog.io/@velopert/create-typescript-react-component
 
-type TodosProps = {
+type TodosPropsType = {
 	items: Todo[];
+	onClickTodoItem: (id: string) => void
 }
 
-function Todos({items}: TodosProps) {
+function Todos(props: TodosPropsType) {
 	return (
 		<div>
 			<ul className={styles.todos}>
-				{items.map((item, index) => <TodoItem todo={item} key={item.id + index}/>)}
+				{props.items.map((item, index) => <TodoItem onClick={props.onClickTodoItem} todo={item} key={item.id + index}/>)}
 			</ul>
 		</div>
 	);
