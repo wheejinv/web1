@@ -1,6 +1,10 @@
 import React, {useRef} from 'react';
 
-function NewTodo() {
+type NewTodoPropsType = {
+	onAddTodo: (text: string) => void
+}
+
+function NewTodo(props: NewTodoPropsType) {
 	// https://stackoverflow.com/questions/33796267/how-to-use-refs-in-react-with-typescript
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -17,6 +21,12 @@ function NewTodo() {
 		// 타입스크립트에게 null 일 리 없다고 알려준다.
 		// enteredText type: string
 		const enteredText = inputRef.current!.value;
+
+		if (enteredText.trim().length === 0) {
+			return;
+		}
+
+		props.onAddTodo(enteredText);
 	}
 
 	return (
