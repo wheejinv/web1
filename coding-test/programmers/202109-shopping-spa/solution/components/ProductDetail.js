@@ -2,6 +2,7 @@ import SelectedOptions from "./SelectedOptions.js";
 import selectedOptions from "./SelectedOptions.js";
 
 function ProductDetail({ $target, initialState }) {
+	let isInitialized = false
 	const $productDetail = document.createElement('div')
 	$productDetail.className = 'ProductDetail'
 
@@ -29,7 +30,8 @@ function ProductDetail({ $target, initialState }) {
 	this.render = () => {
 		const { product } = this.state
 
-		$productDetail.innerHTML = `
+		if (!isInitialized) {
+			$productDetail.innerHTML = `
       <img src="${product.imageUrl}">
       <div class="ProductDetail__info">
         <h2>${product.name}</h2>
@@ -37,7 +39,7 @@ function ProductDetail({ $target, initialState }) {
         <select>
           <option>선택하세요.</option>
           ${product.productOptions.map(option =>
-			`
+				`
               <option value="${option.id}" ${option.stock === 0 ? 'disabled' : ''}>
                 ${option.stock === 0 ? '(품절) ' : ''}${product.name} ${option.name} ${option.price > 0 ? `(+${option.price}원)` : ''}
               </option>
@@ -47,13 +49,16 @@ function ProductDetail({ $target, initialState }) {
       </div>
     `
 
-		selectedOptions = new SelectedOptions({
-			$target: $productDetail.querySelector('.ProductDetail__selectedOptions'),
-			initialState: {
-				product: this.state.product,
-				selectedOptions: this.state.selectedOptions
-			}
-		})
+			selectedOptions = new SelectedOptions({
+				$target: $productDetail.querySelector('.ProductDetail__selectedOptions'),
+				initialState: {
+					product: this.state.product,
+					selectedOptions: this.state.selectedOptions
+				}
+			})
+
+			isInitialized = true;
+		}
 	}
 
 	this.render()
