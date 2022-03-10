@@ -1,3 +1,6 @@
+import {getItem, setItem} from "../storage.js";
+import {routeChange} from "../router.js";
+
 function SelectedOptions({$target, initialState}) {
 	const $component = document.createElement("div")
 	$target.appendChild($component)
@@ -63,6 +66,22 @@ function SelectedOptions({$target, initialState}) {
 			} catch (e) {
 				console.log(e)
 			}
+		}
+	})
+
+	$component.addEventListener('click', (e) => {
+		const { selectedOptions } = this.state
+		if (e.target.className === 'OrderButton') {
+			// 기존에 담겨진 장바구니 데이터가 있을 수 있으므로 가져와보고 없으면 빈배열 처리
+			const cartData = getItem('products_cart', [])
+			// 장바구니 데이터 만들기
+			setItem('products_cart', cartData.concat(selectedOptions.map(selectedOption => ({
+				productId: selectedOption.productId,
+				optionId: selectedOption.optionId,
+				quantity: selectedOption.quantity
+			}))))
+
+			routeChange('/cart')
 		}
 	})
 }
