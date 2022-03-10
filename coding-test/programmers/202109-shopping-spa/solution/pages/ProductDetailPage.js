@@ -40,7 +40,10 @@ function ProductDetailPage({ $target, productId }) {
 	this.fetchProduct().then( () => {
 		let productDetail = new ProductDetail({
 			$target,
-			initialState: this.state,
+			initialState: {
+				product: this.state.product,
+				selectedOptions: [],
+			}
 		})
 	});
 }

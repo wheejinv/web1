@@ -1,4 +1,5 @@
-
+import SelectedOptions from "./SelectedOptions.js";
+import selectedOptions from "./SelectedOptions.js";
 
 function ProductDetail({ $target, initialState }) {
 	const $productDetail = document.createElement('div')
@@ -8,10 +9,20 @@ function ProductDetail({ $target, initialState }) {
 
 	this.state = initialState
 
+	// fetchProduct 이후 화면이 렌더링 되었을 때 동작할 수 있도록
+	// let으로 생성만 해둡니다.
+	let selectedOptions = null;
+
 	this.setState = nextState => {
 		this.state = nextState;
 
 		this.render();
+
+		if (selectedOptions) {
+			selectedOptions.setState({
+				selectedOptions: this.state.selectedOptions
+			})
+		}
 	}
 
 	this.render = () => {
@@ -34,9 +45,52 @@ function ProductDetail({ $target, initialState }) {
         <div class="ProductDetail__selectedOptions"></div>
       </div>
     `
+
+		selectedOptions = new SelectedOptions({
+			$target: $productDetail.querySelector('.ProductDetail__selectedOptions'),
+			initialState: {
+				product: this.state.product,
+				selectedOptions: this.state.selectedOptions
+			}
+		})
 	}
 
 	this.render()
+
+	// 이벤트 바인딩 코드
+	// 이벤트 위임 기법을 이용해 이벤트 자체는 ProductDetail 최상위의 div에서 처리합니다.
+	$productDetail.addEventListener('change', e => {
+		// 이벤트 발생 주체가 select 태그인 경우에만
+		if (e.target.tagName === 'SELECT') {
+			// 상품 옵션을 나타내는 option의 value에는 optionId를 담고 있습니다.
+			// 이를 가져와서 숫자값을 바꿉니다.
+			const selectedOptionId = parseInt(e.target.value)
+			const { product, selectedOptions } = this.state
+			// 상품의 옵션 데이터에서 현재 선택한 optionId가 존재하는지 찾습니다.
+			const option = product.productOptions.find(option => option.id === selectedOptionId)
+			// 이미 선택한 상품인지 선택된 상품 데이터에서 찾아봅니다.
+			const selectedOption = selectedOptions.find(selectedOption => selectedOption.optionId === selectedOptionId)
+
+			// 존재하는 옵션이고 선택된 옵션이 아닌 경우에만 selectedOptions에 현재 선택한
+			// 옵션을 추가합니다.
+			if (option && !selectedOption) {
+				const nextSelectedOptions = [
+					...selectedOptions,
+					{
+						productId: product.id,
+						optionId: option.id,
+						optionName: option.name,
+						optionPrice: option.price,
+						quantity: 1
+					}
+				]
+				this.setState({
+					...this.state,
+					selectedOptions: nextSelectedOptions
+				})
+			}
+		}
+	})
 }
 
 export default ProductDetail;
