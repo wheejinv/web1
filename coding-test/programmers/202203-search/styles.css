@@ -1,0 +1,38 @@
+.App {
+	text-align: center;
+}
+.SelectedLanguage ul li {
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	border: 2px solid #32557f;
+}
+
+input {
+	margin: 2rem auto;
+	background-color: white;
+	padding: 1rem;
+	width: 22rem;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.Suggestion {
+	border: 1px solid #cccccc;
+}
+
+.Suggestion ul li {
+	align-content: center;
+	display: block;
+	width: 100px;
+	height: 30px;
+	border: 2px solid #32557f;
+
+	padding: 0.5rem;
+}
+
+.Suggestion ul li:hover {
+	background-color: yellowgreen;
+}
+
+
