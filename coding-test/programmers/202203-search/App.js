@@ -20,6 +20,9 @@ function App({$target}) {
 		this.render();
 	}
 
+	let lastInputTimeStamp = Date.now() + 3600 * 1000; // 1 hour
+	let timeoutId = -1;
+
 	this.onInputText = async (text) => {
 		this.setState({
 			...this.state,
@@ -37,20 +40,37 @@ function App({$target}) {
 
 		let suggestionListResponse = [];
 		if (hasCache(text)) {
-			suggestionListResponse = getCache(text)
+			suggestionListResponse = getCache(text);
+
+			this.setState({
+				...this.state,
+				suggestionList: suggestionListResponse,
+				currentSuggestionIndex: 0,
+			})
 		} else {
-			suggestionListResponse = await request(text);
-
-			if (Array.isArray(suggestionListResponse)) {
-				saveCache(text, suggestionListResponse);
+			if (timeoutId > 0) {
+				clearTimeout(timeoutId);
+				timeoutId = -1;
 			}
-		}
 
-		this.setState({
-			...this.state,
-			suggestionList: suggestionListResponse,
-			currentSuggestionIndex: 0,
-		})
+			timeoutId = setTimeout( async () => {
+				if (this.state.inputText.trim().length === 0) {
+					return;
+				}
+
+				suggestionListResponse = await request(text);
+
+				if (Array.isArray(suggestionListResponse)) {
+					saveCache(text, suggestionListResponse);
+				}
+
+				this.setState({
+					...this.state,
+					suggestionList: suggestionListResponse,
+					currentSuggestionIndex: 0,
+				})
+			}, 1000);
+		}
 	}
 
 	document.addEventListener('keydown', e => {
