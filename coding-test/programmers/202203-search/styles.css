@@ -35,4 +35,10 @@ input {
 	background-color: yellowgreen;
 }
 
+.Suggestion__item--selected {
+	background-color: #1ac5d1;
+}
 
+.Suggestion__item--matched {
+	background-color: green;
+}
