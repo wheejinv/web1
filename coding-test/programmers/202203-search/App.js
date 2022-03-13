@@ -3,9 +3,10 @@ import SearchInput from "./components/SearchInput.js";
 import Suggestion from "./components/Suggestion.js";
 import {request} from "./api.js";
 import {getCache, hasCache, saveCache} from "./cacheUtil.js";
+import {addSelected, getSelected} from "./localStore.js";
 
 const initialState = {
-	selectedList: [],
+	selectedList: getSelected(),
 	inputText: '',
 	suggestionList: [],
 	currentSuggestionIndex: 0,
@@ -66,21 +67,11 @@ function App({$target}) {
 
 			alert(selectWord);
 
-			const findIndex = selectedList.findIndex(text => text === selectWord);
-
-			if (findIndex > -1) {
-				selectedList.splice(findIndex, 1);
-			}
-
-			selectedList.push(selectWord);
-
-			if (selectedList.length > 5) {
-				selectedList.shift();
-			}
+			addSelected(selectWord);
 
 			this.setState({
 				...this.state,
-				selectedList,
+				selectedList: getSelected(),
 				suggestionList: [],
 				inputText: '',
 				currentSuggestionIndex: 0,
