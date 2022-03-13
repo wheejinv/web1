@@ -1,5 +1,27 @@
 function SearchInput(props) {
-	const {$target, onInputText, inputText} = props;
+	const {$target, onInputText} = props;
+
+
+	this.componentForm = document.createElement('form');
+	this.componentForm.className = 'SearchInput';
+	this.componentForm.onsubmit = e => {
+		e.preventDefault();
+
+		if (this.inputElement) {
+			this.inputElement.value = '';
+		}
+	}
+	$target.appendChild(this.componentForm);
+
+	this.inputElement = document.createElement('input');
+	this.inputElement.autofocus = 'autofocus';
+	this.inputElement.className = 'SearchInput__input';
+	this.inputElement.type = 'text';
+	this.inputElement.placeholder = '프로그램 언어를 입력하세요.';
+	this.inputElement.oninput = e => {
+		onInputText(this.inputElement.value)
+	}
+	this.componentForm.appendChild(this.inputElement);
 
 	this.setState = nextState => {
 		this.state = nextState;
@@ -7,25 +29,7 @@ function SearchInput(props) {
 	}
 
 	this.render = () => {
-		const componentForm = document.createElement('form');
-		componentForm.className = 'SearchInput';
-		componentForm.onsubmit = e => {
-			e.preventDefault();
-		}
 
-		$target.appendChild(componentForm);
-
-		const inputElement = document.createElement('input');
-		inputElement.value = inputText;
-		inputElement.autofocus = 'autofocus';
-		inputElement.className = 'SearchInput__input';
-		inputElement.type = 'text';
-		inputElement.placeholder = '프로그램 언어를 입력하세요.';
-		inputElement.oninput = e => {
-			onInputText(inputElement.value)
-		}
-
-		componentForm.appendChild(inputElement);
 	}
 
 	this.render();

@@ -8,6 +8,7 @@ const initialState = {
 	selectedList: [],
 	inputText: '',
 	suggestionList: [],
+	currentSuggestionIndex: 0,
 }
 
 function App({$target}) {
@@ -19,6 +20,10 @@ function App({$target}) {
 	}
 
 	this.onInputText = async (text) => {
+		if (text.trim().length === 0) {
+			return;
+		}
+
 		this.setState({
 			...this.state,
 			inputText: text,
@@ -38,32 +43,79 @@ function App({$target}) {
 
 		this.setState({
 			...this.state,
-			suggestionList: suggestionListResponse
+			suggestionList: suggestionListResponse,
+			currentSuggestionIndex: 0,
 		})
 	}
 
-	this.render = () => {
-		// 처음에 해주면 state 변경 시 마다 컴포넌트 계속 새로 그려줘야 하는데...
-		$target.innerHTML = '';
+	document.addEventListener('keydown', e => {
+		const {currentSuggestionIndex, suggestionList, selectedList} = this.state;
 
-		const {inputText, suggestionList, selectedList} = this.state;
+		if (e.key === 'ArrowDown') {
+			this.setState({
+				...this.state,
+				currentSuggestionIndex: (currentSuggestionIndex + 1 + suggestionList.length) % suggestionList.length,
+			})
+		} else if (e.key === 'ArrowUp') {
+			this.setState({
+				...this.state,
+				currentSuggestionIndex: (currentSuggestionIndex - 1 + suggestionList.length) % suggestionList.length,
+			})
+		} else if (e.key === 'Enter') {
+			const selectWord = suggestionList[currentSuggestionIndex];
+
+			alert(selectWord);
+
+			const findIndex = selectedList.findIndex(text => text === selectWord);
+
+			if (findIndex > -1) {
+				selectedList.splice(findIndex, 1);
+			}
+
+			selectedList.push(selectWord);
+
+			if (selectedList.length > 5) {
+				selectedList.shift();
+			}
+
+			this.setState({
+				...this.state,
+				selectedList,
+				suggestionList: [],
+				inputText: '',
+				currentSuggestionIndex: 0,
+			})
+		}
+	})
+
+	this.selectedLanguage = new SelectedLanguage({
+		$target,
+	});
+
+	this.searchInput = new SearchInput({
+		$target,
+		onInputText: this.onInputText,
+	});
+
+	this.suggestion =  new Suggestion({
+		$target,
+	})
+
+	this.render = () => {
+		const {inputText, suggestionList, selectedList, currentSuggestionIndex} = this.state;
 
 		if (selectedList.length > 0) {
-			new SelectedLanguage({
-				$target,
-			});
+			this.selectedLanguage.setState({selectedList});
+			this.selectedLanguage.show();
+		} else {
+			this.selectedLanguage.hide();
 		}
 
-		new SearchInput({
-			$target,
-			onInputText: this.onInputText,
-			inputText: this.state.inputText,
-		});
-
 		if (inputText.trim().length !== 0 && suggestionList.length > 0) {
-			new Suggestion({
-				$target,
-			})
+			this.suggestion.setState({suggestionList, inputText, currentSuggestionIndex});
+			this.suggestion.show();
+		} else {
+			this.suggestion.hide();
 		}
 	}
 
