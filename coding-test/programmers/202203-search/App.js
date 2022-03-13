@@ -21,6 +21,11 @@ function App({$target}) {
 	}
 
 	this.onInputText = async (text) => {
+		this.setState({
+			...this.state,
+			suggestionList: [],
+		})
+
 		if (text.trim().length === 0) {
 			return;
 		}
@@ -28,7 +33,6 @@ function App({$target}) {
 		this.setState({
 			...this.state,
 			inputText: text,
-			suggestionList: [],
 		})
 
 		let suggestionListResponse = [];
@@ -64,6 +68,8 @@ function App({$target}) {
 			})
 		} else if (e.key === 'Enter') {
 			const selectWord = suggestionList[currentSuggestionIndex];
+
+			if (!selectWord) return;
 
 			alert(selectWord);
 
