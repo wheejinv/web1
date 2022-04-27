@@ -20,7 +20,7 @@
       <h2>My Course Goal</h2>
       <!-- 데이터 바인딩-->
 <!--      <p>{{courseGoal}}</p> -->
-      <p>{{outputGoal()}}</p>
+      <p v-html="outputGoal()"></p>
       <p>Learn more <a v-bind:href="vueLink">about Vue</a></p>
     </section>
   </body>
