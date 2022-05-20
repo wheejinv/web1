@@ -1,7 +1,19 @@
 const DB = require('./db_connection').DB;
 const DB2 = require('./db_connection').DB2;
+const format = require('sql-formatter').format;
 
-const sql = DB2.format(`SELECT * FROM game WHERE asd = '1';`);
+const sql = DB2.format(`
+	select *
+	FROM game
+		   WHERE asd = '1';
+`);
+
+process.on('unhandledRejection', (reason, promise) => {
+	console.log(reason);
+
+	console.log(format(reason.sql));
+});
+
 // const sql = DB2.format(`SELECT menu FROM auth;`);
 const sql2 = DB2.format(
 	`
@@ -18,10 +30,13 @@ const sql2 = DB2.format(
 // });
 
 (async () => {
-	try {
-		let [result] = await DB2.query(sql);
-		console.log(result);
-	} catch(e) {
-		console.log(e);
-	}
+
+	let [result] = await DB2.query(sql);
+
+	// try {
+	// 	let [result] = await DB2.query(sql);
+	// 	console.log(result);
+	// } catch(e) {
+	// 	console.log(e);
+	// }
 })()

@@ -19,9 +19,9 @@ process.on('uncaughtException', (err) => {
 (async () => {
 	let result = await query('SELECT * FROM auth');
 
-	throw new Error('test error');
+	// throw new Error('test error');
 
-	console.log('test');
+	// console.log('test');
 
 	// try {
 	// 	let result = await query('SELECT * FROM auth');
