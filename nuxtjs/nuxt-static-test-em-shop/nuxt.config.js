@@ -1,4 +1,10 @@
+import {resolve} from 'path'
+
 export default {
+  alias: {
+    // 'ss': resolve(__dirname, './components')
+  },
+
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -28,7 +34,7 @@ export default {
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -40,5 +46,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend(config, {isClient}) {
+      const alias = config.resolve.alias = config.resolve.alias || {}
+      if (alias.hasOwnProperty('@')) {
+        delete alias['@'];
+      }
+    }
   }
 }
