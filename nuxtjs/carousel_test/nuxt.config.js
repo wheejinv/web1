@@ -38,6 +38,10 @@ export default {
     '@nuxtjs/axios'
   ],
 
+  server: {
+    port: 3003
+  },
+
   // https://dev.to/paramo/using-sass-global-variables-in-nuxt-js-j0k
   styleResources: {
     scss: ['assets/scss/*.scss']

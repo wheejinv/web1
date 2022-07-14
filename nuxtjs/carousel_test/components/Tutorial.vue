@@ -16,8 +16,8 @@ import axios from 'axios'
 export default {
   name: 'IndexPage',
   async mounted() {
-    const {data} = await axios.get('http://localhost:3001/');
-    this.response = data;
+    // const {data} = await axios.get('http://localhost:3001/');
+    // this.response = data;
   },
   data() {
     return {
