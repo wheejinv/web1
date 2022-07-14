@@ -1,5 +1,5 @@
 <template>
-  <div class="max" id="test-carousel-1">
+  <div class="max" id="test-carousel-2">
     <VueSlickCarousel v-bind="setting">
       <div class="contents" @click="log(1)">1</div>
       <div class="contents" @click="log(2)">2</div>
@@ -55,7 +55,7 @@ export default {
 }
 
 .max {
-  border: 1px solid red;
+  border: 1px solid blue;
   max-width: 550px;
   margin-left: 30px;
 }
@@ -63,7 +63,8 @@ export default {
 
 <style lang="scss">
 
-#test-carousel-1 {
+
+#test-carousel-2 {
   // 왼쪽 화살표
   .slick-prev {
     left: 2px;
@@ -78,7 +79,7 @@ export default {
 
   // https://stackoverflow.com/questions/62227124/slick-slider-change-text-color-with-dots
   .slick-dots li button:before {
-    color: White !important;
+    color: red !important;
   }
 
   // dot position

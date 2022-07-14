@@ -2,6 +2,7 @@
   <div class="bg">
     <Tutorial/>
     <TestCarousel/>
+    <TestCarousel2/>
   </div>
 
 </template>
